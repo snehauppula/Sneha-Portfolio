@@ -1,114 +1,179 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useRef } from "react";
-import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useMemo } from "react";
+
+function NeuralNetwork() {
+    // Generate static nodes for the background visualization
+    const nodes = useMemo(() => Array.from({ length: 20 }).map((_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 2 + 1,
+    })), []);
+
+    const connections = useMemo(() => {
+        const lines = [];
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const dist = Math.sqrt(Math.pow(nodes[i].x - nodes[j].x, 2) + Math.pow(nodes[i].y - nodes[j].y, 2));
+                if (dist < 25) {
+                    lines.push({ i, j, opacity: 1 - dist / 25 });
+                }
+            }
+        }
+        return lines;
+    }, [nodes]);
+
+    return (
+        <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+            <svg viewBox="0 0 100 100" className="w-full h-full preserve-3d">
+                {connections.map((line, idx) => (
+                    <motion.line
+                        key={`line-${idx}`}
+                        x1={nodes[line.i].x}
+                        y1={nodes[line.i].y}
+                        x2={nodes[line.j].x}
+                        y2={nodes[line.j].y}
+                        stroke="currentColor"
+                        strokeWidth="0.1"
+                        className="text-primary"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={{ pathLength: 1, opacity: line.opacity }}
+                        transition={{ duration: 2, delay: idx * 0.05 }}
+                    />
+                ))}
+                {nodes.map((node) => (
+                    <motion.circle
+                        key={`node-${node.id}`}
+                        cx={node.x}
+                        cy={node.y}
+                        r={node.size / 10}
+                        className="fill-primary"
+                        animate={{
+                            opacity: [0.2, 0.5, 0.2],
+                            scale: [1, 1.2, 1],
+                        }}
+                        transition={{
+                            duration: 3 + Math.random() * 2,
+                            repeat: Infinity,
+                            delay: Math.random() * 2,
+                        }}
+                    />
+                ))}
+            </svg>
+        </div>
+    );
+}
 
 export function AboutSection() {
-    const containerRef = useRef<HTMLDivElement>(null);
+    const sectionRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start end", "end start"]
+    });
+
+    const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+    const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
     return (
         <section
-            ref={containerRef}
-            className="relative h-screen bg-background py-24 px-6 md:px-[10vw] flex flex-col items-center justify-center overflow-hidden"
+            ref={sectionRef}
+            id="about"
+            className="relative min-h-[120vh] bg-background py-32 px-6 md:px-[8vw] flex flex-col items-center justify-center overflow-hidden"
         >
-            {/* Background Ambient Glows */}
-            <div className="absolute top-1/4 -left-24 w-96 h-96 bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
-            <div className="absolute bottom-1/4 -right-24 w-96 h-96 bg-secondary/10 blur-[120px] rounded-full pointer-events-none" />
+            <NeuralNetwork />
 
-            <div className="max-w-6xl w-full space-y-16 md:space-y-24 z-10">
-                {/* Kinetic Heading */}
-                <div className="space-y-6">
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                        className="flex items-center gap-4 text-primary font-mono text-xs uppercase tracking-[0.4em]"
-                    >
-                        <div className="w-12 h-px bg-primary/40" />
-                        Genesis & Philosophy
-                    </motion.div>
+            {/* Kinetic Typography Background */}
+            <motion.div
+                style={{ y: y1 }}
+                className="absolute top-20 right-[-5%] text-[20vw] font-black text-white/[0.02] select-none whitespace-nowrap leading-none z-0"
+            >
+                DATA SCIENCE DATA SCIENCE DATA
+            </motion.div>
+            <motion.div
+                style={{ y: y2 }}
+                className="absolute bottom-20 left-[-5%] text-[20vw] font-black text-white/[0.02] select-none whitespace-nowrap leading-none z-0"
+            >
+                MACHINE LEARNING MACHINE LEARNING
+            </motion.div>
 
-                    <motion.h2
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1, delay: 0.1 }}
-                        className="text-5xl md:text-8xl lg:text-9xl font-sans font-bold tracking-tighter leading-[0.85] select-none"
-                    >
-                        I MOVE AT THE <br />
-                        <span className="text-glow italic text-primary">SPEED OF THOUGHT.</span>
-                    </motion.h2>
+            <div className="max-w-7xl w-full z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+                {/* Left Side: The "Core" Ident */}
+                <div className="lg:col-span-4 space-y-12">
+                    <div className="space-y-4">
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            className="flex items-center gap-4 text-primary font-mono text-xs uppercase tracking-[0.5em]"
+                        >
+                            <div className="w-8 h-px bg-primary" />
+                            Core.Architect
+                        </motion.div>
+                        <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white">
+                            Beyond the <br />
+                            <span className="text-primary italic">Algorithm.</span>
+                        </h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-8">
+                        {[
+                            { label: "Systems Built", value: "24+", desc: "Deployed production models" },
+                            { label: "Data Scale", value: "TBs+", desc: "Processed daily volume" }
+                        ].map((stat, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: i * 0.1 }}
+                                className="p-6 glass border-white/5 rounded-2xl space-y-2 group hover:border-primary/30 transition-colors"
+                            >
+                                <p className="text-primary font-mono text-[10px] uppercase tracking-widest">{stat.label}</p>
+                                <p className="text-4xl font-bold text-white group-hover:text-glow transition-all">{stat.value}</p>
+                                <p className="text-white/40 text-xs font-mono uppercase tracking-wider">{stat.desc}</p>
+                            </motion.div>
+                        ))}
+                    </div>
                 </div>
 
-                {/* Narrative Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-20 items-center">
+                {/* Right Side: Narrative & Philosophy */}
+                <div className="lg:col-span-8 lg:pl-12 space-y-16">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1, delay: 0.3 }}
-                        className="lg:col-span-3 space-y-8"
+                        className="space-y-8"
                     >
-                        <div className="space-y-6">
-                            <p className="text-2xl md:text-4xl text-white font-light leading-snug">
-                                As a <span className="text-primary font-medium">Data Scientist</span> and AI Engineer,
-                                I specialize in building systems that <span className="italic">learn, adapt, and drive impact.</span>
-                            </p>
-                            <div className="h-px w-24 bg-primary/30" />
-                            <p className="text-muted-foreground text-lg md:text-xl leading-relaxed font-light max-w-2xl">
-                                My mission is to bridge the gap between complex data and human intuition.
-                                Whether it&apos;s predictive modeling or creative front-end integration,
-                                I strive for excellence in every line of code.
-                            </p>
-                        </div>
+                        <p className="text-3xl md:text-5xl lg:text-6xl text-white font-light leading-[1.1] tracking-tight">
+                            I specialize in bridging the gap between <span className="text-primary font-normal">raw complexity</span> and <span className="italic">human intuition.</span>
+                        </p>
 
-                        {/* Stats/Details */}
-                        <div className="grid grid-cols-2 gap-8 pt-4">
-                            {[
-                                { label: "Systems Built", value: "24+" },
-                                { label: "Data Processed", value: "TBs+" }
-                            ].map((stat, i) => (
-                                <div key={i} className="space-y-1">
-                                    <p className="text-primary font-mono text-xs uppercase tracking-widest">{stat.label}</p>
-                                    <p className="text-2xl font-bold text-white">{stat.value}</p>
-                                </div>
-                            ))}
-                        </div>
+                        <div className="h-px w-full bg-gradient-to-r from-primary/50 to-transparent" />
+
+                        <p className="text-lg md:text-2xl text-muted-foreground leading-relaxed font-light max-w-3xl">
+                            With a focus on predictive architectures and high-performance ML pipelines,
+                            I don&apos;t just build models — I architect decision engines that drive measurable impact.
+                            My approach combines rigorous statistical foundations with cutting-edge engineering.
+                        </p>
                     </motion.div>
 
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9, rotateY: 10 }}
-                        whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
-                        transition={{ duration: 1.5, ease: "easeOut", delay: 0.4 }}
-                        className="lg:col-span-2 relative aspect-[4/5] rounded-[2rem] overflow-hidden glass border-white/10 group shadow-2xl"
-                    >
-                        <Image
-                            src="/sneha_pic2.jpg"
-                            alt="Sneha - Vision"
-                            fill
-                            className="object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-60" />
-
-                        {/* Content Overlay */}
-                        <div className="absolute bottom-6 left-6 right-6">
-                            <div className="p-4 rounded-xl glass border-white/5 space-y-2">
-                                <div className="text-[10px] font-mono text-primary animate-pulse uppercase tracking-[0.2em]">Neural Architect v2.0</div>
-                                <div className="h-px w-full bg-white/10" />
-                                <p className="text-[9px] uppercase tracking-[0.3em] text-white/60">Architecting Neural Pathways</p>
-                            </div>
-                        </div>
-
-                        {/* Interactive scan lines */}
-                        <div className="absolute inset-0 scanline opacity-30 pointer-events-none" />
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(168,85,247,0.1),transparent)]" />
-                    </motion.div>
+                    {/* Technical Stack Tags */}
+                    <div className="flex flex-wrap gap-3 pt-4">
+                        {["Deep Learning", "Predictive Analytics", "CV", "NLP", "MLOps"].map((tech, i) => (
+                            <span key={i} className="px-4 py-2 rounded-full border border-white/10 glass text-[10px] font-mono uppercase tracking-[0.2em] text-white/60">
+                                {tech}
+                            </span>
+                        ))}
+                    </div>
                 </div>
             </div>
 
-            {/* Background Glitch Elements */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.03]">
-                <div className="scanline" />
+            {/* Section Footer: Ambient Deco */}
+            <div className="absolute bottom-10 left-10 flex items-center gap-4 opacity-20 hidden md:flex">
+                <div className="w-10 h-10 rounded-full border border-primary animate-ping" />
+                <span className="text-[10px] font-mono text-white uppercase tracking-[0.4em]">System Active // 01 Genesis</span>
             </div>
         </section>
     );
 }
+

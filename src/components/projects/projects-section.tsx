@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ExternalLink, Github, Database, Cpu, Globe } from "lucide-react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { ExternalLink, Github, Cpu, Activity, Layers, Zap, Terminal, Code2, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useRef } from "react";
 
@@ -9,164 +9,176 @@ interface Project {
     title: string;
     description: string;
     tech: string[];
-    color: string;
     image: string;
-    icon: React.ReactNode;
     id: string;
+    metrics: string[];
+    color: string;
 }
 
 const projects: Project[] = [
     {
-        title: "AI-Based College Predictor",
-        description: "Advanced machine learning model to predict college admissions based on diverse student metrics.",
-        tech: ["Python", "Flask", "Scikit-Learn"],
-        color: "from-purple-500/40 to-blue-500/40",
+        title: "College Prediction System",
+        description: "Advanced predictive model developed using counseling dataset architectures. Features a dedicated Flask interface to forecast academic placements with high precision.",
+        tech: ["Python", "Flask", "Pandas", "Scikit-Learn"],
         image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop",
-        icon: <Cpu className="w-5 h-5 text-primary" />,
-        id: "ARCH-71"
+        id: "PREDICT_SYS_V4",
+        metrics: ["94.2% Precision", "12 Node Arch", "MLOps Optimized"],
+        color: "rgb(168, 85, 247)"
     },
     {
-        title: "YouTube Viral Analytics",
-        description: "Real-time data visualization and sentiment analysis for trending video content.",
-        tech: ["Pandas", "Plotly", "D3.js"],
-        color: "from-red-500/40 to-orange-500/40",
-        image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=1974&auto=format&fit=crop",
-        icon: <Database className="w-5 h-5 text-orange-400" />,
-        id: "DATA-12"
+        title: "Mini Music Predictor",
+        description: "Classification-based intelligence engine designed to decipher user music preferences using optimized hyperparameter tuning.",
+        tech: ["Python", "Machine Learning", "Matplotlib"],
+        image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=2070&auto=format&fit=crop",
+        id: "AUDIO_CORE_X1",
+        metrics: ["91% Recall", "24 Dim Feature Set", "Real-time Class"],
+        color: "rgb(234, 179, 8)"
     },
     {
-        title: "CIVIGUARD AI",
-        description: "Public safety intelligence platform integrating ML with real-time incident monitoring.",
-        tech: ["TensorFlow", "Next.js", "FastAPI"],
-        color: "from-emerald-500/40 to-cyan-500/40",
-        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop",
-        icon: <Globe className="w-5 h-5 text-emerald-400" />,
-        id: "SEC-09"
+        title: "CleanData Visualization",
+        description: "A Streamlit-powered data cleaning and visualization tool that automates complex workflows with real-time graphical insights.",
+        tech: ["Streamlit", "Numpy", "Seaborn"],
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+        id: "VIS_DA_009",
+        metrics: ["100% Automation", "0.2ms Parsing", "Dashboard Ready"],
+        color: "rgb(16, 185, 129)"
+    },
+    {
+        title: "Flask Content Manager",
+        description: "Robust backend architecture utilizing SQLAlchemy for structured content management and high-availability configurations.",
+        tech: ["Flask", "SQLAlchemy", "PostgreSQL"],
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2026&auto=format&fit=crop",
+        id: "BACKEND_LOG_X",
+        metrics: ["R/W Optimized", "Sync Sync Rate", "Integrity Verified"],
+        color: "rgb(59, 130, 246)"
     }
 ];
 
-interface ProjectCardProps {
-    project: Project;
-    index: number;
-}
-
-function ProjectCard({ project, index }: ProjectCardProps) {
-    const containerRef = useRef(null);
+export function ProjectsSection() {
+    const targetRef = useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ['start end', 'start start']
+        target: targetRef,
     });
 
-    const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-    const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]);
 
     return (
-        <div ref={containerRef} className="h-screen flex items-center justify-center sticky top-0 py-24 px-4 md:px-[6vw]">
-            <motion.div
-                style={{ scale, opacity, top: `calc(-5vh + ${index * 25}px)` }}
-                className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-[3rem] overflow-hidden glass border-white/5 shadow-2xl group"
-            >
-                {/* Visual Content */}
-                <div className="absolute inset-0">
+        <section ref={targetRef} className="relative h-[400vh] bg-[#020202]">
+            <div className="sticky top-0 h-screen flex flex-col items-start justify-center overflow-hidden">
+                {/* Horizontal Header */}
+                <div className="container mx-auto px-6 lg:px-12 mb-12 relative z-20">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        className="flex items-center gap-4 text-primary font-mono text-[10px] uppercase tracking-[0.6em] mb-4"
+                    >
+                        <Terminal className="w-4 h-4" />
+                        Intelligence_Vault_v6.5
+                    </motion.div>
+                    <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter uppercase leading-none">
+                        SELECTED <br />
+                        <span className="text-glow italic text-primary font-serif">WORKS.</span>
+                    </h2>
+                </div>
+
+                {/* Horizontal Moving Container */}
+                <motion.div style={{ x }} className="flex gap-12 px-6 lg:px-12 items-center">
+                    {projects.map((project, index) => (
+                        <ProjectCard key={project.id} project={project} index={index} />
+                    ))}
+
+                    {/* Final CTA Card */}
+                    <div className="flex-shrink-0 w-80 h-[500px] flex flex-col items-center justify-center text-center space-y-6 glass rounded-[3rem] border-white/5 bg-white/[0.01]">
+                        <div className="w-20 h-20 rounded-full border border-primary/20 flex items-center justify-center animate-pulse">
+                            <ArrowRight className="w-8 h-8 text-primary" />
+                        </div>
+                        <h4 className="text-white font-black uppercase tracking-widest">End_of_Scan</h4>
+                        <p className="text-white/20 text-[10px] font-mono uppercase tracking-[0.2em]">Contact for more dossiers</p>
+                    </div>
+                </motion.div>
+
+                {/* Background Telemetry Layers */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.01)_1px,transparent_1px)] bg-[size:100px_100px] -z-10" />
+                <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent -z-10" />
+            </div>
+        </section>
+    );
+}
+
+function ProjectCard({ project, index }: { project: Project, index: number }) {
+    return (
+        <div className="flex-shrink-0 w-[85vw] md:w-[650px] group">
+            <div className="glass rounded-[3.5rem] border-white/10 overflow-hidden bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-700 flex flex-col md:flex-row h-full">
+
+                {/* Visual Node */}
+                <div className="relative w-full md:w-2/5 h-64 md:h-[500px] overflow-hidden">
                     <Image
                         src={project.image}
                         alt={project.title}
                         fill
-                        className="object-cover transition-transform duration-1000 group-hover:scale-110 blur-[2px] group-hover:blur-0"
+                        className="object-cover grayscale brightness-50 contrast-125 group-hover:scale-110 transition-transform duration-1000"
                     />
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
-                    <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-40 group-hover:opacity-20 transition-opacity`} />
-                </div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20" />
+                    <div
+                        className="absolute inset-0 opacity-20"
+                        style={{ background: `linear-gradient(135deg, ${project.color}, transparent)` }}
+                    />
 
-                {/* Scan Overlay */}
-                <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
-                    <div className="scanline opacity-20" />
-                    <div className="absolute top-8 left-8 p-4 border-l border-t border-primary/40 opacity-40">
-                        <span className="text-[10px] font-mono tracking-[0.4em] uppercase">{project.id}</span>
+                    <div className="absolute top-8 left-8">
+                        <div
+                            className="w-12 h-12 rounded-2xl glass border-white/10 flex items-center justify-center shadow-2xl"
+                            style={{ color: project.color }}
+                        >
+                            <Code2 className="w-6 h-6" />
+                        </div>
                     </div>
                 </div>
 
-                {/* Info Overlay */}
-                <div className="absolute inset-0 z-20 p-8 md:p-16 flex flex-col justify-between">
-                    <div className="flex justify-between items-start">
-                        <div className="flex items-center gap-4 glass px-4 py-2 rounded-full border-white/10">
-                            {project.icon}
-                            <span className="text-xs font-mono tracking-widest text-white/60">SYSTEMS READY</span>
+                {/* Data Dossier */}
+                <div className="flex-1 p-8 md:p-12 flex flex-col justify-between space-y-8">
+                    <div className="space-y-6">
+                        <div className="flex items-center justify-between">
+                            <span className="text-[9px] font-mono text-white/30 uppercase tracking-[0.4em] block">Dossier_{project.id}</span>
+                            <div className="flex gap-2">
+                                <Github className="w-4 h-4 text-white/20 hover:text-primary transition-colors cursor-pointer" />
+                                <ExternalLink className="w-4 h-4 text-white/20 hover:text-primary transition-colors cursor-pointer" />
+                            </div>
                         </div>
-                        <div className="flex gap-3">
-                            {project.tech.map(t => (
-                                <span key={t} className="px-3 py-1 rounded-full bg-white/5 backdrop-blur-md text-[10px] font-mono border border-white/10">
+
+                        <h3 className="text-4xl font-black text-white uppercase tracking-tighter leading-tight drop-shadow-2xl">
+                            {project.title}
+                        </h3>
+
+                        <p className="text-sm md:text-base text-white/50 font-light leading-relaxed">
+                            {project.description}
+                        </p>
+
+                        <div className="flex flex-wrap gap-2 pt-2">
+                            {project.tech.map((t) => (
+                                <span key={t} className="px-3 py-1.5 bg-white/5 border border-white/5 rounded-xl text-[9px] font-mono text-white/70 uppercase tracking-widest font-black">
                                     {t}
                                 </span>
                             ))}
                         </div>
                     </div>
 
-                    <div className="space-y-6 max-w-3xl">
-                        <motion.h3
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            className="text-4xl md:text-7xl font-bold tracking-tighter leading-tight"
-                        >
-                            {project.title.split(' ').map((word, i) => (
-                                <span key={i} className={i === 0 ? 'text-primary italic' : ''}>{word}{' '}</span>
+                    {/* Integrated Metrics */}
+                    <div className="pt-8 border-t border-white/5 grid grid-cols-1 gap-4">
+                        <div className="flex items-center gap-3">
+                            <Activity className="w-4 h-4 text-primary/40" />
+                            <span className="text-[9px] font-mono text-white/30 uppercase tracking-[0.3em] font-black">Performance_Index</span>
+                        </div>
+                        <div className="flex flex-wrap gap-4">
+                            {project.metrics.map((m) => (
+                                <div key={m} className="flex items-center gap-2">
+                                    <div className="w-1 h-1 rounded-full bg-primary" />
+                                    <span className="text-[10px] font-mono text-white/80 uppercase tracking-tighter">{m}</span>
+                                </div>
                             ))}
-                        </motion.h3>
-                        <p className="text-lg md:text-2xl text-white/60 font-light leading-relaxed">
-                            {project.description}
-                        </p>
-                        <div className="flex gap-6">
-                            <button className="flex items-center gap-3 px-8 py-3 rounded-full bg-white text-black font-bold hover:scale-105 active:scale-95 transition-all shadow-xl">
-                                <ExternalLink className="w-4 h-4" /> Review Model
-                            </button>
-                            <button className="flex items-center gap-3 px-8 py-3 rounded-full glass border-white/10 font-bold hover:bg-white/5 hover:scale-105 active:scale-95 transition-all">
-                                <Github className="w-4 h-4" /> Source Code
-                            </button>
                         </div>
                     </div>
                 </div>
-            </motion.div>
+            </div>
         </div>
     );
 }
-
-export function ProjectsSection() {
-    return (
-        <section className="relative bg-background">
-            {/* Project Header */}
-            <div className="snap-section h-screen flex flex-col items-center justify-center space-y-8 px-6 text-center">
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-4 text-primary font-mono text-xs uppercase tracking-[0.4em]"
-                >
-                    <div className="w-12 h-px bg-primary/40" />
-                    Portfolio Output
-                </motion.div>
-                <motion.h2
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    className="text-6xl md:text-[10vw] font-bold tracking-tight leading-none"
-                >
-                    SELECTED <br /> <span className="text-glow text-primary italic">WORKS.</span>
-                </motion.h2>
-                <p className="text-muted-foreground text-lg md:text-xl max-w-xl font-light">
-                    Transforming complex data architectures into intuitive digital experiences.
-                </p>
-            </div>
-
-            {/* Stacking Cards Container */}
-            <div className="relative">
-                {projects.map((project, index) => (
-                    <div key={project.title} className="snap-section">
-                        <ProjectCard
-                            project={project}
-                            index={index}
-                        />
-                    </div>
-                ))}
-            </div>
-        </section>
-    );
-}
-

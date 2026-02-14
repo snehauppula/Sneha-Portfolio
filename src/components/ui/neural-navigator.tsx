@@ -56,16 +56,16 @@ function NavButton({ item, isActive, isHovered, onHover, onLeave }: any) {
                         initial={{ opacity: 0, x: 10, filter: "blur(4px)" }}
                         animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                         exit={{ opacity: 0, x: 10, filter: "blur(4px)" }}
-                        className="absolute right-14 px-4 py-1.5 glass rounded-lg border-primary/20 pointer-events-none flex flex-col items-end"
+                        className="absolute right-20 px-5 py-2 glass rounded-xl border-primary/30 pointer-events-none flex flex-col items-end backdrop-blur-2xl bg-black/40 z-[110] shadow-2xl"
                     >
-                        <span className="text-[8px] font-mono text-primary uppercase tracking-[0.3em] opacity-60">System_Access</span>
-                        <span className="text-[11px] font-sans font-black text-white tracking-[0.1em] whitespace-nowrap">
+                        <span className="text-[8px] font-mono text-primary uppercase tracking-[0.4em] opacity-80">SYSTEM_ACCESS</span>
+                        <span className="text-[12px] font-sans font-black text-white tracking-[0.15em] whitespace-nowrap">
                             {item.label}
                         </span>
                         {isActive && (
                             <motion.div
                                 layoutId="tooltip-line"
-                                className="h-0.5 w-full bg-primary mt-1 origin-right"
+                                className="h-0.5 w-full bg-primary mt-1.5 origin-right shadow-[0_0_10px_#a855f7]"
                                 initial={{ scaleX: 0 }}
                                 animate={{ scaleX: 1 }}
                             />
@@ -78,13 +78,13 @@ function NavButton({ item, isActive, isHovered, onHover, onLeave }: any) {
             <motion.button
                 onClick={() => scrollToSection(item.id)}
                 style={{ x, y }}
-                className={`relative w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-700 ${isActive
-                        ? "bg-primary text-primary-foreground shadow-[0_0_30px_rgba(168,85,247,0.5)] border-transparent"
-                        : "glass text-white/30 border-white/5 hover:text-white"
+                className={`relative w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-700 ${isActive
+                    ? "bg-primary text-primary-foreground shadow-[0_0_40px_rgba(168,85,247,0.6)] border-transparent"
+                    : "glass text-white/30 border-white/5 hover:text-white group-hover:border-primary/20"
                     }`}
             >
                 <motion.div
-                    animate={isActive ? { scale: [1, 1.1, 1] } : {}}
+                    animate={isActive ? { scale: [1, 1.15, 1] } : {}}
                     transition={{ duration: 2, repeat: Infinity }}
                     className="z-10"
                 >
@@ -95,15 +95,15 @@ function NavButton({ item, isActive, isHovered, onHover, onLeave }: any) {
                 {isActive && (
                     <motion.div
                         layoutId="btn-active-glow"
-                        className="absolute inset-0 bg-primary/20 blur-xl rounded-2xl -z-10"
+                        className="absolute inset-0 bg-primary/25 blur-2xl rounded-2xl -z-10"
                     />
                 )}
 
                 {/* Border Hover Trace */}
                 <motion.div
-                    className="absolute inset-0 border border-primary/40 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute inset-0 border border-primary/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"
                     initial={{ scale: 0.8 }}
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={{ scale: 1.15 }}
                 />
             </motion.button>
         </div>
@@ -123,7 +123,7 @@ export function NeuralNavigator() {
                     }
                 });
             },
-            { threshold: 0.6 } // Increased threshold for tighter snap feedback
+            { threshold: 0.5 } // Refined threshold
         );
 
         navItems.forEach((item) => {
@@ -138,7 +138,7 @@ export function NeuralNavigator() {
     const progressLineHeight = (activeIndex / (navItems.length - 1)) * 100;
 
     return (
-        <div className="fixed right-6 md:right-10 top-1/2 -translate-y-1/2 z-[100] hidden lg:flex flex-col gap-8 py-10">
+        <div className="fixed right-6 md:right-12 top-1/2 -translate-y-1/2 z-[100] hidden lg:flex flex-col gap-10 py-12">
             {navItems.map((item) => (
                 <NavButton
                     key={item.id}
@@ -151,22 +151,22 @@ export function NeuralNavigator() {
             ))}
 
             {/* Sidebar Visual Backbone */}
-            <div className="absolute top-10 bottom-10 right-[21px] w-px bg-white/5 -z-20">
+            <div className="absolute top-12 bottom-12 right-[23px] w-[2px] bg-white/[0.03] -z-20 rounded-full">
                 {/* Active Progress Segment */}
                 <motion.div
-                    className="absolute top-0 w-full bg-gradient-to-b from-primary via-primary shadow-[0_0_15px_rgba(168,85,247,0.5)]"
+                    className="absolute top-0 w-full bg-gradient-to-b from-primary via-primary to-transparent shadow-[0_0_20px_rgba(168,85,247,0.6)] rounded-full"
                     animate={{
                         height: `${progressLineHeight}%`
                     }}
-                    transition={{ type: "spring", damping: 20, stiffness: 100 }}
+                    transition={{ type: "spring", damping: 25, stiffness: 120 }}
                 />
 
                 {/* Terminal Connection Nodes (Small ticks) */}
                 {navItems.map((_, i) => (
                     <div
                         key={i}
-                        className={`absolute w-1.5 h-1.5 right-[-3px] rounded-full border border-white/10 ${i <= activeIndex ? 'bg-primary border-primary shadow-[0_0_10px_rgba(168,85,247,0.5)]' : 'bg-background'
-                            } transition-colors duration-500`}
+                        className={`absolute w-2 h-2 right-[-3px] rounded-full border border-white/10 ${i <= activeIndex ? 'bg-primary border-primary shadow-[0_0_15px_rgba(168,85,247,0.7)]' : 'bg-background'
+                            } transition-all duration-700`}
                         style={{ top: `${(i / (navItems.length - 1)) * 100}%` }}
                     />
                 ))}
