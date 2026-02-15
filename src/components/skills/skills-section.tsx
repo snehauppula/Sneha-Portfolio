@@ -2,209 +2,213 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { Cpu, Globe, Layers, Zap, Terminal, Activity, Boxes, Code2, Database, Briefcase } from "lucide-react";
+import { Terminal, Cpu, Cloud, Layers, Activity, Workflow, Code2, Sparkles } from "lucide-react";
 
-interface SkillCluster {
+interface Skill {
+    name: string;
+    level: "Core" | "Advanced" | "Proficient";
+}
+
+interface SkillGroup {
     id: string;
-    title: string;
-    label: string;
+    category: string;
+    tagline: string;
     icon: React.ReactNode;
     color: string;
-    skills: string[];
+    skills: Skill[];
     description: string;
 }
 
-const clusters: SkillCluster[] = [
+const skillGroups: SkillGroup[] = [
     {
         id: "programming",
-        title: "Kernel_Languages",
-        label: "Logic Units",
-        icon: <Terminal className="w-6 h-6" />,
-        color: "rgb(168, 85, 247)", // Purple
-        description: "Primary computational languages used for system architecture, logic integration, and algorithmic foundations.",
-        skills: ["Python", "SQL", "C++", "JavaScript", "HTML/CSS"]
+        category: "Programming",
+        tagline: "The Logical Core",
+        icon: <Terminal className="w-5 h-5" />,
+        color: "rgb(168, 85, 247)",
+        description: "Foundational languages used to architect scalable systems and complex logic flows.",
+        skills: [
+            { name: "Python", level: "Core" },
+            { name: "TypeScript", level: "Advanced" },
+            { name: "JavaScript", level: "Core" },
+            { name: "SQL", level: "Advanced" },
+            { name: "C++", level: "Proficient" },
+            { name: "HTML/CSS", level: "Core" }
+        ]
     },
     {
-        id: "ds_ml",
-        title: "Neural_Compute",
-        label: "AI Subsystems",
-        icon: <Cpu className="w-6 h-6" />,
-        color: "rgb(16, 185, 129)", // Emerald
-        description: "Advanced machine learning frameworks and data processing kernels for high-dimensional statistical analysis.",
-        skills: ["Scikit-learn", "Pandas", "NumPy", "TensorFlow", "Keras", "Matplotlib", "Seaborn"]
+        id: "intelligence",
+        category: "Intelligence",
+        tagline: "Data & AI Systems",
+        icon: <Cpu className="w-5 h-5" />,
+        color: "rgb(16, 185, 129)",
+        description: "Harnessing data through machine learning frameworks and statistical intelligence.",
+        skills: [
+            { name: "Scikit-Learn", level: "Core" },
+            { name: "TensorFlow", level: "Advanced" },
+            { name: "Pandas", level: "Core" },
+            { name: "NumPy", level: "Core" },
+            { name: "Seaborn", level: "Advanced" },
+            { name: "Keras", level: "Proficient" }
+        ]
     },
     {
-        id: "dev_tools",
-        title: "Edge_Deployment",
-        label: "System IO",
-        icon: <Globe className="w-6 h-6" />,
-        color: "rgb(59, 130, 246)", // Blue
-        description: "Modern deployment pipelines and interface layers for real-time model interaction and system distribution.",
-        skills: ["Flask", "Streamlit", "Git/GitHub", "Docker", "Jupyter", "Postman", "Vercel"]
+        id: "infrastructure",
+        category: "Infrastructure",
+        tagline: "DevOps & Cloud",
+        icon: <Cloud className="w-5 h-5" />,
+        color: "rgb(59, 130, 246)",
+        description: "Deploying and scaling systems with modern cloud-native technologies.",
+        skills: [
+            { name: "Git/GitHub", level: "Core" },
+            { name: "Docker", level: "Advanced" },
+            { name: "Flask", level: "Core" },
+            { name: "Vercel", level: "Core" },
+            { name: "AWS", level: "Proficient" },
+            { name: "Postman", level: "Advanced" }
+        ]
     },
     {
-        id: "core_cs",
-        title: "System_Foundry",
-        label: "Core Matrix",
-        icon: <Layers className="w-6 h-6" />,
-        color: "rgb(244, 63, 94)", // Rose
-        description: "Fundamental computer science principles and database operations that power the underlying infrastructure.",
-        skills: ["DSA", "DBMS", "OOP", "OS Fundamentals", "System Design", "Cloud Basics"]
+        id: "fundamentals",
+        category: "Foundations",
+        tagline: "Computer Science",
+        icon: <Layers className="w-5 h-5" />,
+        color: "rgb(244, 63, 94)",
+        description: "The theoretical bedrock of efficient software engineering and problem-solving.",
+        skills: [
+            { name: "Data Structures", level: "Core" },
+            { name: "Algorithms", level: "Core" },
+            { name: "System Design", level: "Advanced" },
+            { name: "OOP", level: "Core" },
+            { name: "DBMS", level: "Core" },
+            { name: "OS Fundamentals", level: "Advanced" }
+        ]
     }
 ];
 
 export function SkillsSection() {
-    const [activeId, setActiveId] = useState(clusters[0].id);
-    const activeCluster = clusters.find(c => c.id === activeId) || clusters[0];
+    const [activeGroup, setActiveGroup] = useState(skillGroups[0].id);
+    const activeData = skillGroups.find(g => g.id === activeGroup) || skillGroups[0];
 
     return (
-        <section id="skills" className="min-h-screen bg-[#020202] py-32 relative overflow-hidden flex flex-col items-center justify-center border-b border-white/5">
-            {/* Background Grid Elements */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.015)_1px,transparent_1px)] bg-[size:80px_80px]" />
+        <section id="skills" className="min-h-screen bg-[#020202] py-40 relative flex items-center justify-center overflow-hidden">
+            {/* Subtle Atmospheric Background */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.02),transparent_70%)]" />
 
-            <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
-                {/* Section Title */}
-                <div className="mb-20 space-y-4">
-                    <div className="flex items-center gap-3 text-primary font-mono text-[10px] uppercase tracking-[0.6em]">
-                        <Activity className="w-4 h-4" />
-                        Synapse_Processor_v6.0
-                    </div>
-                    <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter uppercase leading-none">
-                        NEURAL <br />
-                        <span className="text-glow italic text-primary">CAPABILITY.</span>
-                    </h2>
+            <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-20 relative z-10">
+
+                {/* Left: Navigational Hierarchy */}
+                <div className="lg:col-span-4 flex flex-col justify-center space-y-12">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        className="space-y-4"
+                    >
+                        <span className="flex items-center gap-3 text-primary/60 font-mono text-[10px] uppercase tracking-[0.4em]">
+                            <Sparkles className="w-4 h-4" />
+                            Technical Expertise
+                        </span>
+                        <h2 className="text-6xl font-black text-white tracking-tighter uppercase leading-[0.9]">
+                            KNOWLEDGE <br />
+                            <span className="text-glow italic text-primary">GRAPH.</span>
+                        </h2>
+                    </motion.div>
+
+                    <nav className="space-y-6">
+                        {skillGroups.map((group) => (
+                            <button
+                                key={group.id}
+                                onClick={() => setActiveGroup(group.id)}
+                                className="group flex flex-col items-start text-left relative"
+                            >
+                                <span className={`text-4xl font-bold tracking-tighter uppercase transition-all duration-500 ${activeGroup === group.id ? "text-white" : "text-white/20 group-hover:text-white/40"
+                                    }`}>
+                                    {group.category}
+                                </span>
+                                <AnimatePresence>
+                                    {activeGroup === group.id && (
+                                        <motion.div
+                                            layoutId="active-nav-line"
+                                            className="h-1 bg-primary mt-2 rounded-full"
+                                            initial={{ width: 0 }}
+                                            animate={{ width: "100%" }}
+                                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                        />
+                                    )}
+                                </AnimatePresence>
+                                <span className={`text-[10px] font-mono uppercase tracking-[0.2em] mt-2 transition-colors ${activeGroup === group.id ? "text-primary/60" : "text-white/5 opacity-0 group-hover:opacity-100"
+                                    }`}>
+                                    {group.tagline}
+                                </span>
+                            </button>
+                        ))}
+                    </nav>
                 </div>
 
-                {/* Integrated Bento Dashboard */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                {/* Right: The Typographic Canvas */}
+                <div className="lg:col-span-8">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeGroup}
+                            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                            exit={{ opacity: 0, y: -30, filter: "blur(10px)" }}
+                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                            className="space-y-16"
+                        >
+                            <div className="space-y-6">
+                                <p className="text-2xl font-light text-white/50 leading-relaxed max-w-2xl border-l border-primary/20 pl-8">
+                                    {activeData.description}
+                                </p>
+                            </div>
 
-                    {/* Left Panel: Neural Processor Grid (Bento) */}
-                    <div className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {clusters.map((cluster) => (
-                            <motion.button
-                                key={cluster.id}
-                                onClick={() => setActiveId(cluster.id)}
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                className={`relative p-8 rounded-[2.5rem] border transition-all duration-500 text-left overflow-hidden h-64 flex flex-col justify-between group ${activeId === cluster.id
-                                        ? "bg-white/[0.05] border-white/20 shadow-2xl shadow-primary/10"
-                                        : "bg-white/[0.02] border-white/5 hover:border-white/10"
-                                    }`}
-                            >
-                                {/* Animated Background Glow */}
-                                <div
-                                    className="absolute -top-10 -right-10 w-32 h-32 blur-[60px] opacity-0 transition-opacity duration-500 group-hover:opacity-40"
-                                    style={{ backgroundColor: cluster.color }}
-                                />
-
-                                <div className="relative z-10 space-y-4">
-                                    <div
-                                        className="w-14 h-14 rounded-2xl glass flex items-center justify-center transition-all duration-500 group-hover:scale-110"
-                                        style={{
-                                            borderColor: activeId === cluster.id ? cluster.color : 'rgba(255,255,255,0.1)',
-                                            color: activeId === cluster.id ? cluster.color : 'rgba(255,255,255,0.4)'
-                                        }}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+                                {activeData.skills.map((skill, i) => (
+                                    <motion.div
+                                        key={skill.name}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: i * 0.05 }}
+                                        className="group cursor-default"
                                     >
-                                        {cluster.icon}
-                                    </div>
-                                    <div>
-                                        <span className="text-[10px] font-mono text-white/30 uppercase tracking-[0.4em] block mb-1">
-                                            {cluster.label}
-                                        </span>
-                                        <h4 className={`text-2xl font-black tracking-tight uppercase leading-none transition-colors ${activeId === cluster.id ? "text-white" : "text-white/40"
-                                            }`}>
-                                            {cluster.title}
-                                        </h4>
-                                    </div>
+                                        <div className="flex items-end justify-between mb-2">
+                                            <h4 className="text-3xl font-black text-white/90 uppercase tracking-tighter group-hover:text-primary transition-colors">
+                                                {skill.name}
+                                            </h4>
+                                            <span className="text-[10px] font-mono text-primary/40 uppercase tracking-widest pb-1">
+                                                {skill.level}
+                                            </span>
+                                        </div>
+                                        <div className="h-px w-full bg-white/5 relative overflow-hidden">
+                                            <motion.div
+                                                className="absolute inset-0 bg-primary/20"
+                                                initial={{ x: "-100%" }}
+                                                animate={{ x: "0%" }}
+                                                transition={{ duration: 1, delay: 0.5 + i * 0.1 }}
+                                            />
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+
+                            {/* Minimal Footer */}
+                            <div className="pt-20 flex items-center gap-10 opacity-20">
+                                <div className="flex items-center gap-3">
+                                    <Activity className="w-4 h-4" />
+                                    <span className="text-[10px] font-mono uppercase tracking-widest">Efficiency_Rating: Optimized</span>
                                 </div>
-
-                                <div className="flex items-center justify-between relative z-10">
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: cluster.color }} />
-                                        <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest">Status: Operational</span>
-                                    </div>
-                                    <Terminal className={`w-4 h-4 transition-colors ${activeId === cluster.id ? "text-primary" : "text-white/10"
-                                        }`} />
+                                <div className="flex items-center gap-3">
+                                    <Workflow className="w-4 h-4" />
+                                    <span className="text-[10px] font-mono uppercase tracking-widest">Stack_Integrity: Verified</span>
                                 </div>
-                            </motion.button>
-                        ))}
-                    </div>
-
-                    {/* Right Panel: Subsystem Inventory */}
-                    <div className="lg:col-span-6 h-full">
-                        <div className="glass h-full p-10 md:p-14 rounded-[3.5rem] border-white/10 flex flex-col justify-between group overflow-hidden relative">
-                            {/* Scanning Line Effect */}
-                            <motion.div
-                                animate={{ y: [0, 500, 0] }}
-                                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                                className="absolute inset-x-0 h-1 bg-primary/10 blur-sm pointer-events-none z-0"
-                            />
-
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={activeId}
-                                    initial={{ opacity: 0, x: 20, filter: "blur(10px)" }}
-                                    animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                                    exit={{ opacity: 0, x: -20, filter: "blur(10px)" }}
-                                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                                    className="relative z-10 space-y-12"
-                                >
-                                    {/* Inventory Header */}
-                                    <div className="space-y-6">
-                                        <div className="flex items-center gap-4">
-                                            <div
-                                                className="px-4 py-1.5 rounded-full text-[9px] font-mono font-black uppercase tracking-[0.3em] border shadow-sm"
-                                                style={{ borderColor: activeCluster.color + '40', color: activeCluster.color, backgroundColor: activeCluster.color + '10' }}
-                                            >
-                                                SYST_ACCESS_STABLE
-                                            </div>
-                                            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-4xl font-black text-white uppercase tracking-tighter leading-none mb-4">
-                                                SUBSYSTEM <br />
-                                                <span className="text-glow italic" style={{ color: activeCluster.color }}>INVENTORY.</span>
-                                            </h3>
-                                            <p className="text-white/40 text-base font-light leading-relaxed max-w-md">
-                                                {activeCluster.description}
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    {/* Qualitative Skill Grid */}
-                                    <div className="space-y-6">
-                                        <span className="text-[10px] font-mono text-white/30 uppercase tracking-[0.5em] block font-black">Registered_Nodes</span>
-                                        <div className="flex flex-wrap gap-3">
-                                            {activeCluster.skills.map((skill, i) => (
-                                                <motion.div
-                                                    key={skill}
-                                                    initial={{ opacity: 0, scale: 0.9 }}
-                                                    animate={{ opacity: 1, scale: 1 }}
-                                                    transition={{ delay: i * 0.05 }}
-                                                    className="px-6 py-3 bg-white/5 border border-white/10 rounded-2xl text-xs font-mono text-white font-bold uppercase tracking-widest hover:border-white/30 transition-all flex items-center gap-3 group/chip"
-                                                >
-                                                    <Code2 className="w-3 h-3 transition-colors group-hover/chip:text-primary opacity-40" />
-                                                    {skill}
-                                                </motion.div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Data Integrity Footer */}
-                                    <div className="pt-10 flex items-center gap-6 opacity-30 group-hover:opacity-60 transition-opacity">
-                                        <Boxes className="w-6 h-6 text-white" />
-                                        <div className="text-[10px] font-mono text-white uppercase tracking-[0.2em] leading-tight">
-                                            SYSTEM_INTEGRITY_INDEX: 100 // ENCRYPTION_SAFE <br />
-                                            LATENCY: 0.001MS // NODES_ONLINE: {activeCluster.skills.length}
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            </AnimatePresence>
-                        </div>
-                    </div>
+                            </div>
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
             </div>
+
+            {/* Background Texture Overlay */}
+            <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
         </section>
     );
 }

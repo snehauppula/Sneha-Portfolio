@@ -1,18 +1,16 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
-import { Briefcase, Trophy, Cpu, Zap, Activity, Terminal, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Zap } from "lucide-react";
 
 interface ProfessionalRole {
     id: string;
     title: string;
     org: string;
     date: string;
+    impact: string;
     description: string[];
     metrics: string;
-    tech: string[];
-    icon: React.ReactNode;
 }
 
 const roles: ProfessionalRole[] = [
@@ -20,176 +18,143 @@ const roles: ProfessionalRole[] = [
         id: "role-01",
         title: "Data Science Lead",
         org: "CIVIGUARD",
-        date: "2024 - PRESENT",
+        date: "24' - PRES",
+        impact: "Architecting automated predictive pipelines for large-scale civic systems.",
         description: [
-            "Leading core data preprocessing & predictive model development for civic systems.",
-            "Architected automated ML pipelines reducing manual cycle time by 40%.",
-            "Coordinating cross-functional teams for API integration and database scaling.",
-            "Implementing real-time data validation protocols in a Python/Django ecosystem."
+            "Leading core data preprocessing & predictive model development.",
+            "Reduced manual cycle time by 40% through MLOps automation.",
+            "Implementing real-time validation in Python/Django stacks."
         ],
-        metrics: "Lead // 94% Accuracy Baseline",
-        tech: ["Python", "Scikit-Learn", "FastAPI", "PostgreSQL"],
-        icon: <Cpu className="w-5 h-5" />
+        metrics: "94% Accuracy Baseline"
     },
     {
         id: "role-02",
         title: "AI & ML Developer",
-        org: "TECHNICAL PROJECTS",
-        date: "2023 - 2024",
+        org: "TECH PROJECTS",
+        date: "23' - 24'",
+        impact: "Engineering end-to-end predictive architectures for high-precision tasks.",
         description: [
-            "Engineered end-to-end predictive architectures for classification and regression tasks.",
-            "Developed high-precision deployment subsystems using Flask and Streamlit.",
-            "Performed advanced feature engineering and outlier detection on high-dimensional datasets.",
-            "Optimized model performance through hyperparameter tuning and cross-validation."
+            "Developed deployment subsystems using Flask and Streamlit.",
+            "Performed outlier detection on high-dimensional datasets.",
+            "Optimized model performance through hyperparameter tuning."
         ],
-        metrics: "Development // Production-Ready",
-        tech: ["Keras", "TensorFlow", "Pandas", "Streamlit"],
-        icon: <Briefcase className="w-5 h-5" />
+        metrics: "Production-Ready Deployment"
     },
     {
         id: "role-03",
         title: "Hackathon Finalist",
-        org: "TECH MAHINDRA AI DAY",
+        org: "TECH MAHINDRA",
         date: "2024",
+        impact: "Rapidly prototyping civic-tech engines for real-world impact evaluation.",
         description: [
-            "Collaborated on rapid prototyping of a civic-tech solution under intense time constraints.",
-            "Built a competitive classification engine that reached the final evaluation round.",
-            "Demonstrated scalability and real-world impact potential to industry judges."
+            "Built a competitive classification engine for AI Day evaluation.",
+            "Demonstrated scalability to industry judging panels."
         ],
-        metrics: "Event Finalist // Innovation Peak",
-        tech: ["MLOps", "Rapid Prototyping", "UI/UX Integration"],
-        icon: <Trophy className="w-5 h-5" />
+        metrics: "Innovation Peak Finalist"
     }
 ];
 
 export function ExperienceTimeline() {
-    const [activeRoleId, setActiveRoleId] = useState(roles[0].id);
-    const activeRole = roles.find(r => r.id === activeRoleId) || roles[0];
-
     return (
-        <section id="experience" className="min-h-screen bg-[#020202] py-32 relative overflow-hidden flex flex-col items-center justify-center border-b border-white/5">
-            {/* Ambient Background Elements */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.01)_1px,transparent_1px)] bg-[size:100px_100px]" />
-            <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-purple-500/5 blur-[150px] rounded-full -z-10" />
+        <section id="experience" className="bg-[#020202] py-32 relative overflow-hidden">
+            <div className="max-w-4xl mx-auto px-6 relative z-10 w-full">
 
-            <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
-                {/* Header */}
-                <div className="mb-20 space-y-4">
-                    <div className="flex items-center gap-3 text-primary font-mono text-[10px] uppercase tracking-[0.5em]">
-                        <Activity className="w-4 h-4" />
-                        Professional_Evolution_Matrix
-                    </div>
-                    <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter uppercase leading-none">
-                        CAREER <br />
-                        <span className="text-glow italic text-primary">COMMAND.</span>
+                {/* Minimalist Section Header */}
+                <div className="mb-24 flex items-center gap-6">
+                    <div className="h-px w-12 bg-primary/20" />
+                    <h2 className="text-xs font-mono text-primary/40 uppercase tracking-[0.6em] font-black">
+                        Professional Evolution
                     </h2>
                 </div>
 
-                {/* Dashboard Interface */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-1 bg-white/5 border border-white/10 rounded-[2.5rem] overflow-hidden glass">
+                <div className="relative">
+                    {/* The Synapse: Thin vertical thread */}
+                    <div className="absolute left-[7px] md:left-1/2 top-0 bottom-0 w-[0.5px] bg-gradient-to-b from-primary/0 via-primary/20 to-primary/0" />
 
-                    {/* Role Sidebar */}
-                    <div className="lg:col-span-4 border-r border-white/10 p-4 lg:p-8 space-y-2 bg-black/20">
-                        <div className="px-4 pb-6 border-b border-white/5 mb-4">
-                            <span className="text-[9px] font-mono text-white/30 uppercase tracking-[0.4em] block">System_Nodes</span>
-                        </div>
-                        {roles.map((role) => (
-                            <button
-                                key={role.id}
-                                onClick={() => setActiveRoleId(role.id)}
-                                className={`w-full text-left p-6 rounded-2xl transition-all duration-500 flex items-center justify-between group ${activeRoleId === role.id
-                                        ? 'bg-primary/10 border border-primary/20'
-                                        : 'hover:bg-white/5 border border-transparent'
-                                    }`}
-                            >
-                                <div className="space-y-1">
-                                    <h4 className={`text-lg font-bold transition-colors ${activeRoleId === role.id ? 'text-white' : 'text-white/40'}`}>
-                                        {role.title}
-                                    </h4>
-                                    <p className={`text-[10px] font-mono uppercase tracking-[0.1em] ${activeRoleId === role.id ? 'text-primary' : 'text-white/20'}`}>
-                                        {role.org}
-                                    </p>
-                                </div>
-                                <ChevronRight className={`w-4 h-4 transition-all duration-500 ${activeRoleId === role.id ? 'text-primary translate-x-1' : 'text-white/0'
-                                    }`} />
-                            </button>
+                    {/* Roles Nodes */}
+                    <div className="space-y-32">
+                        {roles.map((role, index) => (
+                            <SynapseNode key={role.id} role={role} isLeft={index % 2 === 0} />
                         ))}
                     </div>
+                </div>
 
-                    {/* Data Pane */}
-                    <div className="lg:col-span-8 p-8 lg:p-14 min-h-[600px] flex flex-col justify-between">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={activeRoleId}
-                                initial={{ opacity: 0, y: 10, filter: "blur(10px)" }}
-                                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                                exit={{ opacity: 0, y: -10, filter: "blur(10px)" }}
-                                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                                className="space-y-12"
-                            >
-                                {/* Role Header */}
-                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-12 border-b border-white/5">
-                                    <div className="flex items-center gap-6">
-                                        <div className="w-20 h-20 rounded-3xl glass border-primary/20 flex items-center justify-center text-primary shadow-2xl shadow-primary/20">
-                                            {activeRole.icon}
-                                        </div>
-                                        <div>
-                                            <h3 className="text-4xl font-black text-white uppercase tracking-tight leading-none mb-2">
-                                                {activeRole.title}
-                                            </h3>
-                                            <div className="flex items-center gap-3">
-                                                <span className="text-primary font-mono text-xs uppercase tracking-[0.2em] font-bold">{activeRole.org}</span>
-                                                <span className="w-1 h-1 rounded-full bg-white/20" />
-                                                <span className="text-white/40 font-mono text-xs uppercase">{activeRole.date}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="bg-primary/5 border border-primary/20 px-6 py-3 rounded-2xl flex flex-col items-end">
-                                        <span className="text-[8px] font-mono text-primary/60 uppercase tracking-[0.3em] font-black">Performance_Metric</span>
-                                        <span className="text-sm font-mono text-white font-black">{activeRole.metrics}</span>
-                                    </div>
-                                </div>
-
-                                {/* Achievements */}
-                                <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-                                    <div className="md:col-span-8 space-y-6">
-                                        <span className="text-[10px] font-mono text-primary uppercase tracking-[0.5em] block font-black">Achievement_Log</span>
-                                        <ul className="space-y-6">
-                                            {activeRole.description.map((line, i) => (
-                                                <li key={i} className="flex gap-4 text-white/80 text-lg font-light leading-relaxed">
-                                                    <Terminal className="w-5 h-5 text-primary/40 shrink-0 mt-1.5" />
-                                                    <span>{line}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-
-                                    {/* Tech Stack Column */}
-                                    <div className="md:col-span-4 space-y-6">
-                                        <span className="text-[10px] font-mono text-white/30 uppercase tracking-[0.5em] block font-black">System_Stack</span>
-                                        <div className="flex flex-wrap gap-2">
-                                            {activeRole.tech.map((item) => (
-                                                <span key={item} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[10px] font-mono text-white font-bold uppercase tracking-widest hover:border-primary/30 transition-colors">
-                                                    {item}
-                                                </span>
-                                            ))}
-                                        </div>
-
-                                        <div className="pt-10">
-                                            <div className="p-6 rounded-3xl border border-white/5 bg-white/2 group hover:bg-white/5 transition-colors">
-                                                <Zap className="w-6 h-6 text-primary mb-4 animate-pulse" />
-                                                <span className="text-[9px] font-mono text-white/30 uppercase tracking-[0.3em] block mb-2">Security_Status</span>
-                                                <span className="text-xs font-mono text-primary font-black uppercase">Role_Active_S0{roles.indexOf(activeRole) + 1}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        </AnimatePresence>
+                {/* Performance Footer Metric */}
+                <div className="mt-32 pt-8 flex justify-center">
+                    <div className="flex items-center gap-3 px-4 py-2 rounded-full border border-white/5 bg-white/[0.01]">
+                        <Zap className="w-3 h-3 text-primary/40" />
+                        <span className="text-[8px] font-mono text-white/20 uppercase tracking-[0.4em]">Optimized_Trajectory_Locked</span>
                     </div>
                 </div>
             </div>
         </section>
+    );
+}
+
+function SynapseNode({ role, isLeft }: { role: ProfessionalRole; isLeft: boolean }) {
+    return (
+        <div className={`relative flex items-start ${isLeft ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+
+            {/* The Node Point */}
+            <div className="absolute left-[3px] md:left-1/2 md:-translate-x-1/2 top-1.5 z-20">
+                <div className="w-[9px] h-[9px] rounded-full border border-primary/40 bg-[#020202] group-hover:bg-primary transition-colors flex items-center justify-center">
+                    <div className="w-[3px] h-[3px] rounded-full bg-primary/40" />
+                </div>
+            </div>
+
+            {/* Date Tag */}
+            <div className={`hidden md:block w-1/2 ${isLeft ? 'pl-16' : 'pr-16 text-right'}`}>
+                <span className="text-[10px] font-mono text-white/20 uppercase tracking-widest font-black italic">
+                    {role.date}
+                </span>
+            </div>
+
+            {/* Content Card (Ultra Minimal) */}
+            <div className={`w-full md:w-1/2 pl-10 md:pl-0 ${isLeft ? 'md:pr-16 md:text-right' : 'md:pl-16'}`}>
+                <motion.div
+                    initial={{ opacity: 0, x: isLeft ? -10 : 10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    className="group"
+                >
+                    <div className="flex items-center gap-3 mb-2 md:hidden">
+                        <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest">{role.date}</span>
+                    </div>
+
+                    <div className={`flex flex-col ${isLeft ? 'md:items-end' : 'md:items-start'} gap-1 mb-4`}>
+                        <h3 className="text-[10px] font-mono text-primary uppercase tracking-[0.3em] font-black">{role.org}</h3>
+                        <div className="flex items-center gap-2">
+                            <h4 className="text-xl font-bold text-white tracking-tight">{role.title}</h4>
+                            <ArrowUpRight className="w-4 h-4 text-white/10 group-hover:text-primary transition-colors" />
+                        </div>
+                    </div>
+
+                    <p className="text-[13px] text-white/40 leading-relaxed font-light mb-6 max-w-sm inline-block group-hover:text-white/60 transition-colors">
+                        {role.impact}
+                    </p>
+
+                    {/* Interactive Metrics Reveal */}
+                    <div className={`flex flex-col ${isLeft ? 'md:items-end' : 'md:items-start'} gap-3`}>
+                        <div className="flex items-center gap-2 group/reveal cursor-default">
+                            <div className="w-1 h-1 rounded-full bg-primary/40" />
+                            <span className="text-[9px] font-mono text-primary/30 uppercase tracking-widest italic group-hover:text-primary transition-colors">
+                                {role.metrics}
+                            </span>
+                        </div>
+
+                        {/* Hidden Detail Bullets (Revealed via Group Hover) */}
+                        <div className={`max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 overflow-hidden transition-all duration-700 ease-in-out`}>
+                            <ul className={`space-y-2 pt-2 ${isLeft ? 'md:text-right' : 'md:text-left'}`}>
+                                {role.description.slice(0, 2).map((item, i) => (
+                                    <li key={i} className="text-[11px] text-white/20 font-light hover:text-white/40 transition-colors">
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </motion.div>
+            </div>
+        </div>
     );
 }
