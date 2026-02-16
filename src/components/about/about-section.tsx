@@ -106,10 +106,10 @@ export function AboutSection() {
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            className="flex items-center gap-4 text-primary font-mono text-xs uppercase tracking-[0.5em]"
+                            className="flex items-center gap-4 text-primary font-mono text-[10px] uppercase tracking-[0.5em]"
                         >
                             <div className="w-8 h-px bg-primary" />
-                            Core.Architect
+                            CORE_IDENT_v1.0
                         </motion.div>
                         <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white">
                             Beyond the <br />
@@ -142,10 +142,15 @@ export function AboutSection() {
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="space-y-8"
+                        className="space-y-12"
                     >
-                        <p className="text-3xl md:text-5xl lg:text-6xl text-white font-light leading-[1.1] tracking-tight">
-                            I specialize in bridging the gap between <span className="text-primary font-normal">raw complexity</span> and <span className="italic">human intuition.</span>
+                        <div className="flex items-center gap-4 text-primary/40 font-mono text-[10px] uppercase tracking-[0.4em]">
+                            UPLINK_STATUS: SECURED // GENESIS_PROTOCOL
+                        </div>
+                        <p className="text-3xl md:text-5xl lg:text-5xl text-white font-black leading-[1.1] tracking-tighter uppercase italic">
+                            I specialize in bridging the gap <br />
+                            between <span className="text-primary">raw complexity</span> <br />
+                            and <span className="text-glow">human intuition.</span>
                         </p>
 
                         <div className="h-px w-full bg-gradient-to-r from-primary/50 to-transparent" />
@@ -158,9 +163,9 @@ export function AboutSection() {
                     </motion.div>
 
                     {/* Technical Stack Tags */}
-                    <div className="flex flex-wrap gap-3 pt-4">
+                    <div className="flex flex-wrap gap-3 pt-8">
                         {["Deep Learning", "Predictive Analytics", "CV", "NLP", "MLOps"].map((tech, i) => (
-                            <span key={i} className="px-4 py-2 rounded-full border border-white/10 glass text-[10px] font-mono uppercase tracking-[0.2em] text-white/60">
+                            <span key={i} className="px-5 py-2 rounded-full border border-white/10 glass text-[10px] font-mono uppercase tracking-widest text-white/40 hover:text-primary hover:border-primary/30 transition-colors">
                                 {tech}
                             </span>
                         ))}

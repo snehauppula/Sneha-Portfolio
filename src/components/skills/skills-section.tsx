@@ -106,11 +106,11 @@ export function SkillsSection() {
                     >
                         <span className="flex items-center gap-3 text-primary/60 font-mono text-[10px] uppercase tracking-[0.4em]">
                             <Sparkles className="w-4 h-4" />
-                            Technical Expertise
+                            NEURAL_CORE_v4.2
                         </span>
                         <h2 className="text-6xl font-black text-white tracking-tighter uppercase leading-[0.9]">
-                            KNOWLEDGE <br />
-                            <span className="text-glow italic text-primary">GRAPH.</span>
+                            COGNITIVE <br />
+                            <span className="text-glow italic text-primary">MATRIX.</span>
                         </h2>
                     </motion.div>
 
