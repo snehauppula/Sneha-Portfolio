@@ -62,23 +62,33 @@ const roles: ProfessionalRole[] = [
 export function ExperienceTimeline() {
     const [activeId, setActiveId] = useState(roles[0].id);
     const activeRole = roles.find(r => r.id === activeId) || roles[0];
+    const [isValidating, setIsValidating] = useState(false);
+    const [isVerified, setIsVerified] = useState(false);
+
+    const handleValidate = () => {
+        setIsValidating(true);
+        setTimeout(() => {
+            setIsValidating(false);
+            setIsVerified(true);
+            setTimeout(() => setIsVerified(false), 3000);
+        }, 1500);
+    };
 
     return (
-        <section id="experience" className="min-h-screen bg-[#020202] py-32 relative overflow-hidden flex flex-col items-center justify-center border-b border-white/5">
+        <section id="experience" className="min-h-screen snap-section bg-[#020202] py-12 relative overflow-hidden flex flex-col items-center justify-center border-b border-white/5">
             {/* Background Data Stream */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.01)_1px,transparent_1px)] bg-[size:100px_100px] -z-10" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(168,85,247,0.05)_0%,transparent_70%)]" />
 
             <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
                 {/* Dashboard Header */}
-                <div className="mb-20 space-y-4">
+                <div className="mb-10 space-y-3">
                     <div className="flex items-center gap-3 text-primary font-mono text-[10px] uppercase tracking-[0.6em]">
                         <Activity className="w-4 h-4" />
                         Career_Trajectory_v4.2
                     </div>
                     <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter uppercase leading-none">
-                        COMMAND <br />
-                        <span className="text-glow italic text-primary">CENTER.</span>
+                        EXPERIENCES<span className="text-glow italic text-primary">.</span>
                     </h2>
                 </div>
 
@@ -91,10 +101,13 @@ export function ExperienceTimeline() {
                         {roles.map((role) => (
                             <button
                                 key={role.id}
-                                onClick={() => setActiveId(role.id)}
+                                onClick={() => {
+                                    setActiveId(role.id);
+                                    setIsVerified(false);
+                                }}
                                 className={`w-full group relative p-6 rounded-2xl flex items-center justify-between transition-all duration-500 text-left ${activeId === role.id
-                                        ? "bg-primary/10 border-primary/20 shadow-xl"
-                                        : "hover:bg-white/5 border-transparent"
+                                    ? "bg-primary/10 border-primary/20 shadow-xl"
+                                    : "hover:bg-white/5 border-transparent"
                                     } border`}
                             >
                                 <div className="space-y-1">
@@ -127,13 +140,32 @@ export function ExperienceTimeline() {
                             {activeRole.tag}
                         </div>
 
+                        {/* Scanner Effect */}
+                        <AnimatePresence>
+                            {isValidating && (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="absolute inset-0 z-50 pointer-events-none"
+                                >
+                                    <div className="absolute inset-0 bg-primary/5 backdrop-blur-[2px]" />
+                                    <div className="scanline bg-primary/40 shadow-[0_0_20px_rgba(168,85,247,0.5)]" />
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeId}
-                                initial={{ opacity: 0, y: 10, filter: "blur(10px)" }}
-                                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                                exit={{ opacity: 0, y: -10, filter: "blur(10px)" }}
-                                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                                initial={{ opacity: 0, x: 20, filter: "blur(10px)" }}
+                                animate={{
+                                    opacity: 1,
+                                    x: 0,
+                                    filter: "blur(0px)",
+                                }}
+                                exit={{ opacity: 0, x: -20, filter: "blur(10px)" }}
+                                transition={{ duration: 0.4, ease: "circOut" }}
                                 className="space-y-12 relative z-10"
                             >
                                 {/* Role Header */}
@@ -142,7 +174,6 @@ export function ExperienceTimeline() {
                                         <div className="px-3 py-1 bg-primary/10 border border-primary/20 rounded-full text-[9px] font-mono text-primary uppercase tracking-[0.3em] font-black">
                                             Status_Active
                                         </div>
-                                        <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                                     </div>
                                     <div>
                                         <h3 className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-2xl">
@@ -192,9 +223,22 @@ export function ExperienceTimeline() {
                                 </div>
                             </div>
 
-                            <button className="flex items-center gap-4 px-8 py-4 glass border-white/10 rounded-2xl group/btn hover:border-primary/30 transition-all active:scale-95">
-                                <span className="text-[10px] font-mono text-white/40 group-hover/btn:text-white transition-colors uppercase tracking-[0.2em]">Validate Dossier</span>
-                                <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-primary transition-all group-hover:translate-x-1 group-hover:-translate-y-1" />
+                            <button
+                                onClick={handleValidate}
+                                disabled={isValidating || isVerified}
+                                className={`flex items-center gap-4 px-8 py-4 glass border-white/10 rounded-2xl group/btn transition-all active:scale-95 ${isVerified ? "border-emerald-500/50 bg-emerald-500/10" : "hover:border-primary/30"
+                                    }`}
+                            >
+                                <span className={`text-[10px] font-mono uppercase tracking-[0.2em] transition-colors ${isVerified ? "text-emerald-500" : "text-white/40 group-hover/btn:text-white"
+                                    }`}>
+                                    {isValidating ? "Validating..." : isVerified ? "Dossier Verified" : "Validate Dossier"}
+                                </span>
+                                {isVerified ? (
+                                    <Zap className="w-4 h-4 text-emerald-500 animate-pulse" />
+                                ) : (
+                                    <ArrowUpRight className={`w-4 h-4 transition-all ${isValidating ? "animate-spin text-primary" : "text-white/20 group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1"
+                                        }`} />
+                                )}
                             </button>
                         </div>
                     </div>

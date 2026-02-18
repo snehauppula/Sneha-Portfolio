@@ -6,6 +6,7 @@ import { CustomCursor } from "@/components/ui/custom-cursor";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 import { NeuralNavigator } from "@/components/ui/neural-navigator";
+import { HeroBackground } from "@/components/hero/hero-background";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -43,6 +44,7 @@ export default function RootLayout({
         <LoadingScreen />
         <BrandLogo />
         <NeuralNavigator />
+        <HeroBackground />
         <div className="noise" />
         <CustomCursor />
         <SmoothScroll>

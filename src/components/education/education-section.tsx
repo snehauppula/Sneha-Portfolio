@@ -41,13 +41,13 @@ const records: EducationRecord[] = [
 
 export function EducationSection() {
     return (
-        <section id="education" className="bg-[#020202] py-20 relative flex items-center justify-center overflow-hidden">
+        <section id="education" className="min-h-screen snap-section bg-[#020202] py-12 relative flex items-center justify-center overflow-hidden">
             {/* Background Ambience */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(129,140,248,0.03),transparent_50%)]" />
 
             <div className="max-w-5xl mx-auto px-6 relative z-10 w-full">
                 {/* Header: Fixed Single View Style */}
-                <div className="text-center mb-16 space-y-4">
+                <div className="text-center mb-10 space-y-4">
                     <motion.span
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -58,26 +58,18 @@ export function EducationSection() {
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-7xl md:text-9xl font-black text-white tracking-tighter uppercase leading-none"
+                        className="text-7xl md:text-[8vw] font-black text-white tracking-tighter uppercase leading-none"
                     >
-                        HISTORY.
+                        EDUCATION<span className="text-indigo-500 italic">.</span>
                     </motion.h2>
                 </div>
 
                 {/* High-Density Timeline Array */}
                 <div className="relative">
-                    {/* Vertical Timeline Spine */}
-                    <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-indigo-500/20 to-transparent" />
 
                     <div className="space-y-8 relative">
                         {records.map((item, index) => (
                             <div key={item.id} className="relative">
-                                {/* Chronological Node (Dot) aligned with Date */}
-                                <div className="absolute left-1/2 -translate-x-1/2 top-1.5 z-20">
-                                    <div className="w-8 h-8 rounded-full border border-indigo-500/40 bg-black flex items-center justify-center shadow-[0_0_15px_rgba(129,140,248,0.2)]">
-                                        <div className="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse" />
-                                    </div>
-                                </div>
 
                                 <motion.div
                                     initial={{ opacity: 0 }}

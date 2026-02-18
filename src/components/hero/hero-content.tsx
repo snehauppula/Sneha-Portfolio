@@ -48,7 +48,8 @@ export function HeroContent() {
             ref={containerRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="relative min-h-screen flex items-center justify-center pt-24 pb-12 px-6 md:px-[6vw] overflow-hidden"
+            id="hero"
+            className="relative min-h-screen snap-section flex items-center justify-center py-20 px-6 md:px-[6vw] overflow-hidden"
         >
             <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
@@ -146,6 +147,9 @@ export function HeroContent() {
                                 />
                                 {/* Detail Overlay */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
+
+                                {/* Scanline Effect */}
+                                <div className="scanline" />
                             </motion.div>
                         </motion.div>
 

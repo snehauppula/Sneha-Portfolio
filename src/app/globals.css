@@ -171,17 +171,17 @@
   }
 
   .snap-container {
-    scroll-snap-type: y mandatory;
     overflow-y: auto;
     height: 100vh;
     scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
   }
 
   .snap-section {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
   }
 }

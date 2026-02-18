@@ -1,4 +1,3 @@
-import { HeroBackground } from "@/components/hero/hero-background";
 import { HeroContent } from "@/components/hero/hero-content";
 import { AboutSection } from "@/components/about/about-section";
 import { EducationSection } from "@/components/education/education-section";
@@ -9,42 +8,27 @@ import { ContactSection } from "@/components/contact/contact-section";
 
 export default function Home() {
   return (
-    <div className="bg-[#020202]">
+    <div className="bg-transparent relative snap-container">
       {/* 01. HERO_SYNAPSE */}
-      <section id="hero" className="relative w-full h-screen overflow-hidden">
-        <HeroBackground />
-        <HeroContent />
-      </section>
+      <HeroContent />
 
       {/* 02. COGNITIVE_CORE */}
-      <div id="about">
-        <AboutSection />
-      </div>
+      <AboutSection />
 
       {/* 03. EVOLUTION_MATRIX (Experience) */}
-      <div id="experience">
-        <ExperienceTimeline />
-      </div>
+      <ExperienceTimeline />
 
       {/* 04. SYNAPSE_HUB (Skills) */}
-      <div id="skills">
-        <SkillsSection />
-      </div>
+      <SkillsSection />
 
       {/* 05. INTELLIGENCE_VAULT (Projects) */}
-      <div id="projects">
-        <ProjectsSection />
-      </div>
+      <ProjectsSection />
 
       {/* 06. FOUNDATIONAL_CORE (Education) */}
-      <div id="education">
-        <EducationSection />
-      </div>
+      <EducationSection />
 
       {/* 07. UNIVERSAL_UPLINK (Contact) */}
-      <div id="contact">
-        <ContactSection />
-      </div>
+      <ContactSection />
     </div>
   );
 }

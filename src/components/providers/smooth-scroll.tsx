@@ -10,7 +10,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       options={{
         lerp: 0.1,
         duration: 1.5,
-        smoothWheel: false, // Disabled to allow CSS scroll snap to work reliably
+        smoothWheel: true, // Enabled for fluid "single flow" experience
       }}
     >
       {children}

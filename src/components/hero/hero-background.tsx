@@ -49,11 +49,10 @@ function Particles() {
 
 export function HeroBackground() {
     return (
-        <div className="absolute inset-0 z-[-1] pointer-events-none">
+        <div className="fixed inset-0 z-[-1] pointer-events-none">
             <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
                 <Particles />
             </Canvas>
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
         </div>
     );
 }

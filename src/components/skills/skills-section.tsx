@@ -91,11 +91,11 @@ export function SkillsSection() {
     const activeData = skillGroups.find(g => g.id === activeGroup) || skillGroups[0];
 
     return (
-        <section id="skills" className="min-h-screen bg-[#020202] py-40 relative flex items-center justify-center overflow-hidden">
+        <section id="skills" className="min-h-screen snap-section bg-[#020202] py-16 relative flex items-center justify-center overflow-hidden">
             {/* Subtle Atmospheric Background */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.02),transparent_70%)]" />
 
-            <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-20 relative z-10">
+            <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10">
 
                 {/* Left: Navigational Hierarchy */}
                 <div className="lg:col-span-4 flex flex-col justify-center space-y-12">
@@ -106,11 +106,10 @@ export function SkillsSection() {
                     >
                         <span className="flex items-center gap-3 text-primary/60 font-mono text-[10px] uppercase tracking-[0.4em]">
                             <Sparkles className="w-4 h-4" />
-                            NEURAL_CORE_v4.2
+                            PROTO_CORE_v1.0
                         </span>
-                        <h2 className="text-6xl font-black text-white tracking-tighter uppercase leading-[0.9]">
-                            COGNITIVE <br />
-                            <span className="text-glow italic text-primary">MATRIX.</span>
+                        <h2 className="text-6xl font-black text-white tracking-tighter uppercase leading-none">
+                            SKILLS<span className="text-glow italic text-primary">.</span>
                         </h2>
                     </motion.div>
 

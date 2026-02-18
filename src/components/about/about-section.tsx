@@ -1,15 +1,16 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useMemo } from "react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import { useRef, useMemo, useState } from "react";
 
-function NeuralNetwork() {
+function NeuralNetwork({ mouseX, mouseY }: { mouseX: any, mouseY: any }) {
     // Generate static nodes for the background visualization
-    const nodes = useMemo(() => Array.from({ length: 20 }).map((_, i) => ({
+    const nodes = useMemo(() => Array.from({ length: 30 }).map((_, i) => ({
         id: i,
         x: Math.random() * 100,
         y: Math.random() * 100,
         size: Math.random() * 2 + 1,
+        speed: Math.random() * 0.2 + 0.1
     })), []);
 
     const connections = useMemo(() => {
@@ -17,8 +18,8 @@ function NeuralNetwork() {
         for (let i = 0; i < nodes.length; i++) {
             for (let j = i + 1; j < nodes.length; j++) {
                 const dist = Math.sqrt(Math.pow(nodes[i].x - nodes[j].x, 2) + Math.pow(nodes[i].y - nodes[j].y, 2));
-                if (dist < 25) {
-                    lines.push({ i, j, opacity: 1 - dist / 25 });
+                if (dist < 20) {
+                    lines.push({ i, j, opacity: 1 - dist / 20 });
                 }
             }
         }
@@ -28,36 +29,44 @@ function NeuralNetwork() {
     return (
         <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
             <svg viewBox="0 0 100 100" className="w-full h-full preserve-3d">
-                {connections.map((line, idx) => (
-                    <motion.line
-                        key={`line-${idx}`}
-                        x1={nodes[line.i].x}
-                        y1={nodes[line.i].y}
-                        x2={nodes[line.j].x}
-                        y2={nodes[line.j].y}
-                        stroke="currentColor"
-                        strokeWidth="0.1"
-                        className="text-primary"
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        animate={{ pathLength: 1, opacity: line.opacity }}
-                        transition={{ duration: 2, delay: idx * 0.05 }}
-                    />
-                ))}
+                {connections.map((line, idx) => {
+                    const nodeA = nodes[line.i];
+                    const nodeB = nodes[line.j];
+                    return (
+                        <motion.line
+                            key={`line-${idx}`}
+                            x1={nodeA.x}
+                            y1={nodeA.y}
+                            x2={nodeB.x}
+                            y2={nodeB.y}
+                            stroke="currentColor"
+                            strokeWidth="0.05"
+                            className="text-primary"
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            animate={{ pathLength: 1, opacity: line.opacity }}
+                            transition={{ duration: 2, delay: idx * 0.02 }}
+                        />
+                    );
+                })}
                 {nodes.map((node) => (
                     <motion.circle
                         key={`node-${node.id}`}
                         cx={node.x}
                         cy={node.y}
-                        r={node.size / 10}
+                        r={node.size / 15}
                         className="fill-primary"
                         animate={{
-                            opacity: [0.2, 0.5, 0.2],
-                            scale: [1, 1.2, 1],
+                            opacity: [0.2, 0.6, 0.2],
+                            scale: [1, 1.5, 1],
                         }}
                         transition={{
                             duration: 3 + Math.random() * 2,
                             repeat: Infinity,
                             delay: Math.random() * 2,
+                        }}
+                        style={{
+                            x: useTransform(mouseX, [0, 1], [-node.speed * 5, node.speed * 5]),
+                            y: useTransform(mouseY, [0, 1], [-node.speed * 5, node.speed * 5]),
                         }}
                     />
                 ))}
@@ -68,6 +77,18 @@ function NeuralNetwork() {
 
 export function AboutSection() {
     const sectionRef = useRef<HTMLDivElement>(null);
+    const mouseX = useMotionValue(0.5);
+    const mouseY = useMotionValue(0.5);
+    const springX = useSpring(mouseX, { damping: 20, stiffness: 100 });
+    const springY = useSpring(mouseY, { damping: 20, stiffness: 100 });
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!sectionRef.current) return;
+        const rect = sectionRef.current.getBoundingClientRect();
+        mouseX.set((e.clientX - rect.left) / rect.width);
+        mouseY.set((e.clientY - rect.top) / rect.height);
+    };
+
     const { scrollYProgress } = useScroll({
         target: sectionRef,
         offset: ["start end", "end start"]
@@ -79,10 +100,11 @@ export function AboutSection() {
     return (
         <section
             ref={sectionRef}
+            onMouseMove={handleMouseMove}
             id="about"
-            className="relative min-h-[120vh] bg-background py-32 px-6 md:px-[8vw] flex flex-col items-center justify-center overflow-hidden"
+            className="relative min-h-screen snap-section bg-background py-12 px-6 md:px-[8vw] flex flex-col items-center justify-center overflow-hidden"
         >
-            <NeuralNetwork />
+            <NeuralNetwork mouseX={springX} mouseY={springY} />
 
             {/* Kinetic Typography Background */}
             <motion.div
@@ -109,11 +131,10 @@ export function AboutSection() {
                             className="flex items-center gap-4 text-primary font-mono text-[10px] uppercase tracking-[0.5em]"
                         >
                             <div className="w-8 h-px bg-primary" />
-                            CORE_IDENT_v1.0
+                            IDENTITY_v1.0
                         </motion.div>
-                        <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white">
-                            Beyond the <br />
-                            <span className="text-primary italic">Algorithm.</span>
+                        <h2 className="text-7xl md:text-[8vw] font-black text-white tracking-tighter uppercase leading-none">
+                            ABOUT<span className="text-primary italic">.</span>
                         </h2>
                     </div>
 
@@ -126,8 +147,9 @@ export function AboutSection() {
                                 key={i}
                                 initial={{ opacity: 0, y: 10 }}
                                 whileInView={{ opacity: 1, y: 0 }}
+                                whileHover={{ y: -5, scale: 1.02, rotateX: -2, rotateY: 2 }}
                                 transition={{ delay: i * 0.1 }}
-                                className="p-6 glass border-white/5 rounded-2xl space-y-2 group hover:border-primary/30 transition-colors"
+                                className="p-6 glass border-white/5 rounded-2xl space-y-2 group hover:border-primary/30 transition-all cursor-crosshair preserve-3d"
                             >
                                 <p className="text-primary font-mono text-[10px] uppercase tracking-widest">{stat.label}</p>
                                 <p className="text-4xl font-bold text-white group-hover:text-glow transition-all">{stat.value}</p>
