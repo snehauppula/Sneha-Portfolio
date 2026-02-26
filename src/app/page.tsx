@@ -8,7 +8,7 @@ import { ContactSection } from "@/components/contact/contact-section";
 
 export default function Home() {
   return (
-    <div className="bg-transparent relative snap-container">
+    <div className="bg-transparent relative">
       {/* 01. HERO_SYNAPSE */}
       <HeroContent />
 

@@ -102,7 +102,7 @@ export function AboutSection() {
             ref={sectionRef}
             onMouseMove={handleMouseMove}
             id="about"
-            className="relative min-h-screen snap-section bg-background py-12 px-6 md:px-[8vw] flex flex-col items-center justify-center overflow-hidden"
+            className="relative min-h-screen bg-background py-12 px-6 md:px-[8vw] flex flex-col items-center justify-center overflow-hidden"
         >
             <NeuralNetwork mouseX={springX} mouseY={springY} />
 
@@ -125,14 +125,6 @@ export function AboutSection() {
                 {/* Left Side: The "Core" Ident */}
                 <div className="lg:col-span-4 space-y-12">
                     <div className="space-y-4">
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            className="flex items-center gap-4 text-primary font-mono text-[10px] uppercase tracking-[0.5em]"
-                        >
-                            <div className="w-8 h-px bg-primary" />
-                            IDENTITY_v1.0
-                        </motion.div>
                         <h2 className="text-7xl md:text-[8vw] font-black text-white tracking-tighter uppercase leading-none">
                             ABOUT<span className="text-primary italic">.</span>
                         </h2>

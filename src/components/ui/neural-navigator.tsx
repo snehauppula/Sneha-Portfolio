@@ -3,6 +3,7 @@
 import { motion, AnimatePresence, useSpring, useMotionValue, useTransform } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { Terminal, User, Cpu, Database, Send, History, GraduationCap } from "lucide-react";
+import { useLenis } from "lenis/react";
 
 const navItems = [
     { id: "hero", label: "00 // IDENT", icon: <Terminal className="w-4 h-4" /> },
@@ -36,10 +37,16 @@ function NavButton({ item, isActive, isHovered, onHover, onLeave }: any) {
         onLeave();
     };
 
+    const lenis = useLenis();
+
     const scrollToSection = (id: string) => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
+        if (lenis) {
+            lenis.scrollTo(`#${id}`, { lerp: 0.1 });
+        } else {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+            }
         }
     };
 

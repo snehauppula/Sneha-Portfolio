@@ -41,13 +41,13 @@ const records: EducationRecord[] = [
 
 export function EducationSection() {
     return (
-        <section id="education" className="min-h-screen snap-section bg-[#020202] py-12 relative flex items-center justify-center overflow-hidden">
+        <section id="education" className="min-h-screen bg-[#020202] py-8 relative flex items-center justify-center overflow-hidden">
             {/* Background Ambience */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(129,140,248,0.03),transparent_50%)]" />
 
             <div className="max-w-5xl mx-auto px-6 relative z-10 w-full">
                 {/* Header: Fixed Single View Style */}
-                <div className="text-center mb-10 space-y-4">
+                <div className="text-center mb-6 space-y-4">
                     <motion.span
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -58,7 +58,7 @@ export function EducationSection() {
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-7xl md:text-[8vw] font-black text-white tracking-tighter uppercase leading-none"
+                        className="text-5xl md:text-[6vw] font-black text-white tracking-tighter uppercase leading-none"
                     >
                         EDUCATION<span className="text-indigo-500 italic">.</span>
                     </motion.h2>
@@ -67,7 +67,7 @@ export function EducationSection() {
                 {/* High-Density Timeline Array */}
                 <div className="relative">
 
-                    <div className="space-y-8 relative">
+                    <div className="space-y-4 relative">
                         {records.map((item, index) => (
                             <div key={item.id} className="relative">
 
@@ -86,7 +86,7 @@ export function EducationSection() {
                                     </div>
 
                                     {/* High-Density Dossier Card */}
-                                    <div className="w-full max-w-2xl glass p-8 rounded-[2.5rem] border-white/10 flex items-center gap-8 hover:border-indigo-400/30 transition-all duration-700 group hover:bg-white/[0.02] relative">
+                                    <div className="w-full max-w-2xl glass p-5 rounded-[2.5rem] border-white/10 flex items-center gap-4 hover:border-indigo-400/30 transition-all duration-700 group hover:bg-white/[0.02] relative">
                                         {/* Left Visual ID */}
                                         <div className="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-white/20 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-400 group-hover:text-black transition-all duration-500 relative overflow-hidden">
                                             <div className="absolute inset-0 border border-white/5 rounded-2xl pointer-events-none" />

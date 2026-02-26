@@ -75,19 +75,19 @@ export function ExperienceTimeline() {
     };
 
     return (
-        <section id="experience" className="min-h-screen snap-section bg-[#020202] py-12 relative overflow-hidden flex flex-col items-center justify-center border-b border-white/5">
+        <section id="experience" className="min-h-screen bg-[#020202] py-8 relative overflow-hidden flex flex-col items-center justify-center border-b border-white/5">
             {/* Background Data Stream */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.01)_1px,transparent_1px)] bg-[size:100px_100px] -z-10" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(168,85,247,0.05)_0%,transparent_70%)]" />
 
             <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
                 {/* Dashboard Header */}
-                <div className="mb-10 space-y-3">
+                <div className="mb-4 space-y-2">
                     <div className="flex items-center gap-3 text-primary font-mono text-[10px] uppercase tracking-[0.6em]">
                         <Activity className="w-4 h-4" />
                         Career_Trajectory_v4.2
                     </div>
-                    <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter uppercase leading-none">
+                    <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase leading-[0.9]">
                         EXPERIENCES<span className="text-glow italic text-primary">.</span>
                     </h2>
                 </div>
@@ -134,7 +134,7 @@ export function ExperienceTimeline() {
                     </div>
 
                     {/* Data Pane (Dossier) */}
-                    <div className="lg:col-span-8 p-8 lg:p-14 min-h-[600px] flex flex-col justify-between relative overflow-hidden">
+                    <div className="lg:col-span-8 p-4 lg:p-8 min-h-[400px] flex flex-col justify-between relative overflow-hidden">
                         {/* Dossier Watermark */}
                         <div className="absolute top-10 right-10 text-[100px] font-black text-white/[0.02] pointer-events-none select-none italic tracking-tighter">
                             {activeRole.tag}
@@ -166,28 +166,28 @@ export function ExperienceTimeline() {
                                 }}
                                 exit={{ opacity: 0, x: -20, filter: "blur(10px)" }}
                                 transition={{ duration: 0.4, ease: "circOut" }}
-                                className="space-y-12 relative z-10"
+                                className="space-y-8 relative z-10"
                             >
                                 {/* Role Header */}
-                                <div className="space-y-6">
+                                <div className="space-y-4">
                                     <div className="flex items-center gap-4">
                                         <div className="px-3 py-1 bg-primary/10 border border-primary/20 rounded-full text-[9px] font-mono text-primary uppercase tracking-[0.3em] font-black">
                                             Status_Active
                                         </div>
                                     </div>
                                     <div>
-                                        <h3 className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-2xl">
+                                        <h3 className="text-3xl md:text-4xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-2xl">
                                             {activeRole.title}
                                         </h3>
-                                        <p className="text-lg md:text-xl text-primary/60 font-mono tracking-widest mt-2">
+                                        <p className="text-base md:text-lg text-primary/60 font-mono tracking-widest mt-1">
                                             {activeRole.org} // {activeRole.date}
                                         </p>
                                     </div>
                                 </div>
 
                                 {/* Impact Description */}
-                                <div className="space-y-8">
-                                    <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed max-w-2xl border-l-2 border-primary/30 pl-8">
+                                <div className="space-y-4">
+                                    <p className="text-base md:text-lg text-white/90 font-light leading-relaxed max-w-2xl border-l-2 border-primary/30 pl-6">
                                         {activeRole.impact}
                                     </p>
 
@@ -212,7 +212,7 @@ export function ExperienceTimeline() {
                         </AnimatePresence>
 
                         {/* Performance Metric Footer */}
-                        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+                        <div className="pt-6 border-t border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-xl glass border-white/10 flex items-center justify-center">
                                     <Zap className="w-6 h-6 text-primary" />

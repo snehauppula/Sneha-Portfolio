@@ -55,7 +55,7 @@ export function ProjectsSection() {
     const activeProject = projects.find(p => p.id === selectedId);
 
     return (
-        <section id="projects" className="min-h-screen snap-section bg-[#020202] py-12 relative flex flex-col justify-center">
+        <section id="projects" className="min-h-screen bg-[#020202] py-12 relative flex flex-col justify-center">
             <div className="max-w-[1600px] mx-auto px-6 lg:px-24">
                 {/* Header Section */}
                 <div className="mb-12 space-y-4">

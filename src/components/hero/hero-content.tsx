@@ -4,6 +4,7 @@ import { motion, Variants, useMotionValue, useSpring } from "framer-motion";
 import { LucideMousePointer2 } from "lucide-react";
 import Image from "next/image";
 import { useRef, MouseEvent } from "react";
+import { useLenis } from "lenis/react";
 
 const textReveal: Variants = {
     hidden: { opacity: 0, y: 20 },
@@ -43,13 +44,26 @@ export function HeroContent() {
         mouseY.set(0);
     };
 
+    const lenis = useLenis();
+
+    const scrollTo = (id: string) => {
+        if (lenis) {
+            lenis.scrollTo(`#${id}`, { lerp: 0.1 });
+        } else {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+    };
+
     return (
         <div
             ref={containerRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             id="hero"
-            className="relative min-h-screen snap-section flex items-center justify-center py-20 px-6 md:px-[6vw] overflow-hidden"
+            className="relative min-h-screen flex items-center justify-center py-20 px-6 md:px-[6vw] overflow-hidden"
         >
             <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
@@ -99,12 +113,18 @@ export function HeroContent() {
                         variants={textReveal}
                         className="flex flex-wrap gap-5 justify-center lg:justify-start"
                     >
-                        <button className="group relative px-10 py-5 rounded-full bg-white text-black font-bold overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                        <button
+                            onClick={() => scrollTo("projects")}
+                            className="group relative px-10 py-5 rounded-full bg-white text-black font-bold overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+                        >
                             <span className="relative z-10">Explore Projects</span>
                             <div className="absolute inset-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                         </button>
-                        <button className="px-10 py-5 rounded-full border border-white/10 glass font-bold hover:bg-white/5 transition-all hover:scale-105 active:scale-95">
-                            Collaborate
+                        <button
+                            onClick={() => scrollTo("contact")}
+                            className="px-10 py-5 rounded-full border border-white/10 glass font-bold hover:bg-white/5 transition-all hover:scale-105 active:scale-95 text-white"
+                        >
+                            Contribute
                         </button>
                     </motion.div>
                 </motion.div>
@@ -114,7 +134,7 @@ export function HeroContent() {
                     initial={{ opacity: 0, x: 100, filter: "blur(20px)" }}
                     animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                     transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative flex justify-center lg:justify-end order-1 lg:order-2"
+                    className="relative flex justify-center lg:justify-center order-1 lg:order-2"
                 >
                     <div className="relative w-[300px] h-[400px] md:w-[450px] md:h-[600px] group cursor-pointer">
                         {/* Interactive Frame */}

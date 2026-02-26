@@ -1,8 +1,34 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export function BrandLogo() {
+    const pathname = usePathname();
+    const [isHeroVisible, setIsHeroVisible] = useState(true);
+    const isHomePage = pathname === "/";
+
+    useEffect(() => {
+        if (!isHomePage) return;
+
+        // Use IntersectionObserver to detect if we are in the hero section
+        const hero = document.getElementById('hero');
+        if (!hero) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsHeroVisible(entry.isIntersecting);
+            },
+            { threshold: 0.1 } // Hide earlier if needed
+        );
+
+        observer.observe(hero);
+        return () => observer.disconnect();
+    }, [isHomePage]);
+
+    const showTagline = isHomePage && isHeroVisible;
+
     return (
         <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -91,20 +117,32 @@ export function BrandLogo() {
                             Sneha <span className="text-primary italic">Uppula</span>
                         </motion.h1>
                     </div>
-                    <div className="flex items-center gap-2 mt-2 blur-[0.2px] opacity-80">
-                        <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-primary font-black">
-                            Decoding_Data_Frontiers
-                        </span>
-                        <div className="h-px flex-1 bg-primary/30" />
-                    </div>
+                    <AnimatePresence>
+                        {showTagline && (
+                            <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 0.8, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.5, ease: "circOut" }}
+                                className="flex flex-col overflow-hidden"
+                            >
+                                <div className="flex items-center gap-2 mt-2 blur-[0.2px]">
+                                    <span className="text-[8px] font-mono tracking-[0.3em] uppercase text-primary font-black">
+                                        Decoding_Data_Frontiers
+                                    </span>
+                                    <div className="h-px flex-1 bg-primary/30" />
+                                </div>
 
-                    {/* Data Stream Decoration */}
-                    <motion.div
-                        className="h-0.5 bg-gradient-to-r from-primary to-transparent mt-1"
-                        initial={{ width: 0 }}
-                        animate={{ width: "100%" }}
-                        transition={{ duration: 1.5, delay: 0.5 }}
-                    />
+                                {/* Data Stream Decoration */}
+                                <motion.div
+                                    className="h-0.5 bg-gradient-to-r from-primary to-transparent mt-1"
+                                    initial={{ width: 0 }}
+                                    animate={{ width: "100%" }}
+                                    transition={{ duration: 1.5, delay: 0.5 }}
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
             </motion.div>
         </motion.div>

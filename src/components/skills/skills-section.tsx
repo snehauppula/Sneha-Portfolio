@@ -91,7 +91,7 @@ export function SkillsSection() {
     const activeData = skillGroups.find(g => g.id === activeGroup) || skillGroups[0];
 
     return (
-        <section id="skills" className="min-h-screen snap-section bg-[#020202] py-16 relative flex items-center justify-center overflow-hidden">
+        <section id="skills" className="min-h-screen bg-[#020202] py-16 relative flex items-center justify-center overflow-hidden">
             {/* Subtle Atmospheric Background */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.02),transparent_70%)]" />
 

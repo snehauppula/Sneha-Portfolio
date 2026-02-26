@@ -5,7 +5,7 @@ import { Mail, Linkedin, Github, Send, Terminal, MapPin } from "lucide-react";
 
 export function ContactSection() {
     return (
-        <section id="contact" className="min-h-screen snap-section bg-[#020202] relative overflow-hidden flex flex-col items-center py-20 px-6">
+        <section id="contact" className="min-h-screen bg-[#020202] relative overflow-hidden flex flex-col items-center py-20 px-6">
             {/* Ambient Neural Glows */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(168,85,247,0.05),transparent_50%)]" />
             <div className="absolute -bottom-40 left-1/2 -translate-x-1/2 w-full h-[50vh] bg-primary/2 blur-[120px] rounded-full pointer-events-none" />
