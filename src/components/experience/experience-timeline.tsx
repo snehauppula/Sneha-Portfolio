@@ -133,9 +133,9 @@ export function ExperienceTimeline() {
                         ))}
                     </div>
 
-                    {/* Data Pane (Dossier) */}
+                    {/* Data Pane (Experience Logs) */}
                     <div className="lg:col-span-8 p-4 lg:p-8 min-h-[400px] flex flex-col justify-between relative overflow-hidden">
-                        {/* Dossier Watermark */}
+                        {/* Logs Watermark */}
                         <div className="absolute top-10 right-10 text-[100px] font-black text-white/[0.02] pointer-events-none select-none italic tracking-tighter">
                             {activeRole.tag}
                         </div>
@@ -231,7 +231,7 @@ export function ExperienceTimeline() {
                             >
                                 <span className={`text-[10px] font-mono uppercase tracking-[0.2em] transition-colors ${isVerified ? "text-emerald-500" : "text-white/40 group-hover/btn:text-white"
                                     }`}>
-                                    {isValidating ? "Validating..." : isVerified ? "Dossier Verified" : "Validate Dossier"}
+                                    {isValidating ? "Validating..." : isVerified ? "Logs Verified" : "Validate Logs"}
                                 </span>
                                 {isVerified ? (
                                     <Zap className="w-4 h-4 text-emerald-500 animate-pulse" />

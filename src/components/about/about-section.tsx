@@ -124,8 +124,8 @@ export function AboutSection() {
 
                 {/* Left Side: The "Core" Ident */}
                 <div className="lg:col-span-4 space-y-12">
-                    <div className="space-y-4">
-                        <h2 className="text-7xl md:text-[8vw] font-black text-white tracking-tighter uppercase leading-none">
+                    <div className="space-y-4 pt-3 md:pt-6">
+                        <h2 className="text-6xl md:text-[7vw] font-black text-white tracking-tighter uppercase leading-none">
                             ABOUT<span className="text-primary italic">.</span>
                         </h2>
                     </div>

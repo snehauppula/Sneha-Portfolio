@@ -56,7 +56,7 @@ export function ProjectsSection() {
 
     return (
         <section id="projects" className="min-h-screen bg-[#020202] py-12 relative flex flex-col justify-center">
-            <div className="max-w-[1600px] mx-auto px-6 lg:px-24">
+            <div className="w-full max-w-[1000px] mx-auto px-6 lg:px-12">
                 {/* Header Section */}
                 <div className="mb-12 space-y-4">
                     <motion.div
@@ -70,14 +70,14 @@ export function ProjectsSection() {
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-6xl md:text-8xl font-black text-white tracking-tighter uppercase leading-none"
+                        className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase leading-none"
                     >
                         PROJECTS<span className="text-glow italic text-primary">.</span>
                     </motion.h2>
                 </div>
 
                 {/* Minimal Grid Array */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 relative z-10 w-full">
                     {projects.map((project, index) => (
                         <motion.div
                             key={project.id}
@@ -88,7 +88,7 @@ export function ProjectsSection() {
                             onMouseEnter={() => setHoveredId(project.id)}
                             onMouseLeave={() => setHoveredId(null)}
                             onClick={() => setSelectedId(project.id)}
-                            className="group cursor-pointer aspect-[3/2] rounded-[3rem] overflow-hidden glass border-white/12 relative transition-all duration-500 hover:border-primary/40 shadow-[0_0_80px_rgba(0,0,0,0.9)]"
+                            className="group cursor-pointer h-[280px] lg:h-[320px] rounded-[2rem] overflow-hidden glass border-white/12 relative transition-all duration-500 hover:border-primary/40 shadow-[0_0_80px_rgba(0,0,0,0.9)] w-full"
                         >
                             {/* Base Image */}
                             <Image
@@ -133,14 +133,14 @@ export function ProjectsSection() {
 
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90" />
 
-                            <div className="absolute inset-0 p-10 md:p-16 flex flex-col justify-between z-30">
-                                <span className="text-xs font-mono text-primary uppercase tracking-[0.5em] font-black block">SYSTEM_NODE_{project.id}</span>
-                                <div className="space-y-4">
-                                    <h3 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter leading-[0.9] drop-shadow-[0_0_30px_rgba(0,0,0,1)]">
+                            <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between z-30">
+                                <span className="text-[9px] font-mono text-primary uppercase tracking-[0.5em] font-black block">SYSTEM_NODE_{project.id}</span>
+                                <div className="space-y-2">
+                                    <h3 className="text-xl md:text-3xl font-black text-white uppercase tracking-tighter leading-tight drop-shadow-[0_0_30px_rgba(0,0,0,1)]">
                                         {project.title}
                                     </h3>
-                                    <div className="flex items-center gap-4 text-[11px] font-mono text-white/60 uppercase tracking-[0.4em] group-hover:text-primary transition-colors">
-                                        INITIALIZE_PROTOCOL <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                    <div className="flex items-center gap-3 text-[10px] font-mono text-white/60 uppercase tracking-[0.4em] group-hover:text-primary transition-colors">
+                                        INITIALIZE_PROTOCOL <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                                     </div>
                                 </div>
                             </div>
@@ -196,7 +196,7 @@ export function ProjectsSection() {
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-3 text-primary font-mono text-[10px] uppercase tracking-[0.4em]">
                                                 <Activity className="w-4 h-4" />
-                                                Dossier_ID: {activeProject.id}
+                                                LOG_ID: {activeProject.id}
                                             </div>
                                             <button
                                                 onClick={() => setSelectedId(null)}

@@ -153,7 +153,7 @@ export function SkillsSection() {
                             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                             exit={{ opacity: 0, y: -30, filter: "blur(10px)" }}
                             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                            className="space-y-16"
+                            className="space-y-10"
                         >
                             <div className="space-y-6">
                                 <p className="text-2xl font-light text-white/50 leading-relaxed max-w-2xl border-l border-primary/20 pl-8">
@@ -161,7 +161,7 @@ export function SkillsSection() {
                                 </p>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
                                 {activeData.skills.map((skill, i) => (
                                     <motion.div
                                         key={skill.name}
@@ -170,11 +170,11 @@ export function SkillsSection() {
                                         transition={{ delay: i * 0.05 }}
                                         className="group cursor-default"
                                     >
-                                        <div className="flex items-end justify-between mb-2">
+                                        <div className="flex items-baseline justify-between mb-3">
                                             <h4 className="text-3xl font-black text-white/90 uppercase tracking-tighter group-hover:text-primary transition-colors">
                                                 {skill.name}
                                             </h4>
-                                            <span className="text-[10px] font-mono text-primary/40 uppercase tracking-widest pb-1">
+                                            <span className="text-[10px] font-mono text-primary/40 uppercase tracking-widest">
                                                 {skill.level}
                                             </span>
                                         </div>
@@ -191,7 +191,7 @@ export function SkillsSection() {
                             </div>
 
                             {/* Minimal Footer */}
-                            <div className="pt-20 flex items-center gap-10 opacity-20">
+                            <div className="pt-12 flex items-center gap-10 opacity-20">
                                 <div className="flex items-center gap-3">
                                     <Activity className="w-4 h-4" />
                                     <span className="text-[10px] font-mono uppercase tracking-widest">Efficiency_Rating: Optimized</span>
