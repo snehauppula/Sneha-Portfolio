@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Github, ArrowUpRight, Code2, X, Activity } from "lucide-react";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 interface Project {
     title: string;
@@ -52,7 +52,24 @@ const projects: Project[] = [
 export function ProjectsSection() {
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [hoveredId, setHoveredId] = useState<string | null>(null);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(true);
     const activeProject = projects.find(p => p.id === selectedId);
+
+    const checkScroll = () => {
+        if (scrollContainerRef.current) {
+            const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+            setCanScrollLeft(scrollLeft > 0);
+            setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1); // -1 for sub-pixel rounding
+        }
+    };
+
+    useEffect(() => {
+        checkScroll();
+        window.addEventListener("resize", checkScroll);
+        return () => window.removeEventListener("resize", checkScroll);
+    }, []);
 
     return (
         <section id="projects" className="min-h-screen bg-[#020202] py-12 relative flex flex-col justify-center">
@@ -76,76 +93,121 @@ export function ProjectsSection() {
                     </motion.h2>
                 </div>
 
-                {/* Minimal Grid Array */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 relative z-10 w-full">
-                    {projects.map((project, index) => (
-                        <motion.div
-                            key={project.id}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.1 }}
-                            whileHover={{ y: -12, transition: { duration: 0.4, ease: "circOut" } }}
-                            onMouseEnter={() => setHoveredId(project.id)}
-                            onMouseLeave={() => setHoveredId(null)}
-                            onClick={() => setSelectedId(project.id)}
-                            className="group cursor-pointer h-[280px] lg:h-[320px] rounded-[2rem] overflow-hidden glass border-white/12 relative transition-all duration-500 hover:border-primary/40 shadow-[0_0_80px_rgba(0,0,0,0.9)] w-full"
-                        >
-                            {/* Base Image */}
-                            <Image
-                                src={project.image}
-                                alt={project.title}
-                                fill
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 1000px"
-                                className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000 brightness-50 group-hover:brightness-100"
-                            />
+                {/* Horizontal Scroll Array */}
+                <div className="relative w-full max-w-[900px] lg:max-w-[1000px] mx-auto group mt-8">
+                    <div
+                        ref={scrollContainerRef}
+                        onScroll={checkScroll}
+                        className="flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory gap-6 lg:gap-8 relative z-10 w-full pb-8 pt-4 px-4 md:px-16 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                    >
+                        {projects.map((project, index) => (
+                            <motion.div
+                                key={project.id}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                                whileHover={{ y: -12, transition: { duration: 0.4, ease: "circOut" } }}
+                                onMouseEnter={() => setHoveredId(project.id)}
+                                onMouseLeave={() => setHoveredId(null)}
+                                onClick={() => setSelectedId(project.id)}
+                                className="group/card cursor-pointer shrink-0 snap-start min-w-[85%] md:min-w-[45%] lg:min-w-[40%] h-[260px] lg:h-[300px] rounded-[2rem] overflow-hidden glass border-white/12 relative transition-all duration-500 hover:border-primary/40 shadow-[0_0_80px_rgba(0,0,0,0.9)]"
+                            >
+                                {/* Base Image */}
+                                <Image
+                                    src={project.image}
+                                    alt={project.title}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 1000px"
+                                    className="object-cover grayscale group-[.group\/card]:hover:grayscale-0 group-[.group\/card]:hover:scale-110 transition-all duration-1000 brightness-50 group-[.group\/card]:hover:brightness-100"
+                                />
 
-                            {/* Holographic Aberration Layers */}
-                            <AnimatePresence>
-                                {hoveredId === project.id && (
-                                    <>
-                                        <motion.div
-                                            initial={{ opacity: 0, x: 0 }}
-                                            animate={{ opacity: 0.4, x: -4 }}
-                                            exit={{ opacity: 0, x: 0 }}
-                                            className="absolute inset-0 z-10 pointer-events-none mix-blend-screen"
-                                        >
-                                            <Image src={project.image} alt="Red" fill sizes="1000px" className="object-cover brightness-150 saturate-200 opacity-50 transition-all duration-500" style={{ filter: "sepia(1) hue-rotate(-50deg) saturate(5)" }} />
-                                        </motion.div>
-                                        <motion.div
-                                            initial={{ opacity: 0, x: 0 }}
-                                            animate={{ opacity: 0.4, x: 4 }}
-                                            exit={{ opacity: 0, x: 0 }}
-                                            className="absolute inset-0 z-10 pointer-events-none mix-blend-screen"
-                                        >
-                                            <Image src={project.image} alt="Blue" fill sizes="1000px" className="object-cover brightness-150 saturate-200 opacity-50 transition-all duration-500" style={{ filter: "sepia(1) hue-rotate(150deg) saturate(5)" }} />
-                                        </motion.div>
+                                {/* Holographic Aberration Layers */}
+                                <AnimatePresence>
+                                    {hoveredId === project.id && (
+                                        <>
+                                            <motion.div
+                                                initial={{ opacity: 0, x: 0 }}
+                                                animate={{ opacity: 0.4, x: -4 }}
+                                                exit={{ opacity: 0, x: 0 }}
+                                                className="absolute inset-0 z-10 pointer-events-none mix-blend-screen"
+                                            >
+                                                <Image src={project.image} alt="Red" fill sizes="1000px" className="object-cover brightness-150 saturate-200 opacity-50 transition-all duration-500" style={{ filter: "sepia(1) hue-rotate(-50deg) saturate(5)" }} />
+                                            </motion.div>
+                                            <motion.div
+                                                initial={{ opacity: 0, x: 0 }}
+                                                animate={{ opacity: 0.4, x: 4 }}
+                                                exit={{ opacity: 0, x: 0 }}
+                                                className="absolute inset-0 z-10 pointer-events-none mix-blend-screen"
+                                            >
+                                                <Image src={project.image} alt="Blue" fill sizes="1000px" className="object-cover brightness-150 saturate-200 opacity-50 transition-all duration-500" style={{ filter: "sepia(1) hue-rotate(150deg) saturate(5)" }} />
+                                            </motion.div>
 
-                                        {/* Scanner Line */}
-                                        <motion.div
-                                            initial={{ top: "-10%" }}
-                                            animate={{ top: "110%" }}
-                                            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                                            className="absolute left-0 right-0 h-1.5 bg-primary/60 blur-[6px] z-20 pointer-events-none"
-                                        />
-                                    </>
-                                )}
-                            </AnimatePresence>
+                                            {/* Scanner Line */}
+                                            <motion.div
+                                                initial={{ top: "-10%" }}
+                                                animate={{ top: "110%" }}
+                                                transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                                                className="absolute left-0 right-0 h-1.5 bg-primary/60 blur-[6px] z-20 pointer-events-none"
+                                            />
+                                        </>
+                                    )}
+                                </AnimatePresence>
 
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90" />
 
-                            <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between z-30">
-                                <span className="text-[9px] font-mono text-primary uppercase tracking-[0.5em] font-black block">SYSTEM_NODE_{project.id}</span>
-                                <div className="space-y-2">
-                                    <h3 className="text-xl md:text-3xl font-black text-white uppercase tracking-tighter leading-tight drop-shadow-[0_0_30px_rgba(0,0,0,1)]">
-                                        {project.title}
-                                    </h3>
-                                    <div className="flex items-center gap-3 text-[10px] font-mono text-white/60 uppercase tracking-[0.4em] group-hover:text-primary transition-colors">
-                                        INITIALIZE_PROTOCOL <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between z-30">
+                                    <span className="text-[9px] font-mono text-primary uppercase tracking-[0.5em] font-black block">SYSTEM_NODE_{project.id}</span>
+                                    <div className="space-y-2">
+                                        <h3 className="text-xl md:text-3xl font-black text-white uppercase tracking-tighter leading-tight drop-shadow-[0_0_30px_rgba(0,0,0,1)]">
+                                            {project.title}
+                                        </h3>
+                                        <div className="flex items-center gap-3 text-[10px] font-mono text-white/60 uppercase tracking-[0.4em] group-[.group\/card]:hover:text-primary transition-colors">
+                                            INITIALIZE_PROTOCOL <ArrowUpRight className="w-4 h-4 group-[.group\/card]:hover:translate-x-1 group-[.group\/card]:hover:-translate-y-1 transition-transform" />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </motion.div>
-                    ))}
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Navigation Controls */}
+                    <AnimatePresence>
+                        {canScrollLeft && (
+                            <motion.button
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.8 }}
+                                onClick={() => {
+                                    if (scrollContainerRef.current) {
+                                        scrollContainerRef.current.scrollBy({ left: -400, behavior: 'smooth' });
+                                    }
+                                }}
+                                className="absolute -left-2 md:-left-8 lg:-left-12 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full glass border border-white/10 text-white hover:text-primary hover:border-primary/50 transition-all duration-300 hover:scale-110 shadow-[0_0_30px_rgba(0,0,0,0.5)] bg-black/50 backdrop-blur-md"
+                                aria-label="Scroll left"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+                            </motion.button>
+                        )}
+                    </AnimatePresence>
+
+                    <AnimatePresence>
+                        {canScrollRight && (
+                            <motion.button
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.8 }}
+                                onClick={() => {
+                                    if (scrollContainerRef.current) {
+                                        scrollContainerRef.current.scrollBy({ left: 400, behavior: 'smooth' });
+                                    }
+                                }}
+                                className="absolute -right-2 md:-right-8 lg:-right-12 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full glass border border-white/10 text-white hover:text-primary hover:border-primary/50 transition-all duration-300 hover:scale-110 shadow-[0_0_30px_rgba(0,0,0,0.5)] bg-black/50 backdrop-blur-md"
+                                aria-label="Scroll right"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+                            </motion.button>
+                        )}
+                    </AnimatePresence>
                 </div>
             </div>
 
