@@ -224,9 +224,10 @@ export function ExperienceTimeline() {
                             </div>
 
                             <button
+                                type="button"
                                 onClick={handleValidate}
                                 disabled={isValidating || isVerified}
-                                className={`flex items-center gap-4 px-8 py-4 glass border-white/10 rounded-2xl group/btn transition-all active:scale-95 ${isVerified ? "border-emerald-500/50 bg-emerald-500/10" : "hover:border-primary/30"
+                                className={`flex items-center gap-4 px-8 py-4 glass border-white/10 rounded-2xl group/btn transition-all duration-300 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[#020202] ${isVerified ? "border-emerald-500/50 bg-emerald-500/10" : "hover:border-primary/30"
                                     }`}
                             >
                                 <span className={`text-[10px] font-mono uppercase tracking-[0.2em] transition-colors ${isVerified ? "text-emerald-500" : "text-white/40 group-hover/btn:text-white"

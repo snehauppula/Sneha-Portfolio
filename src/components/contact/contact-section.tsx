@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 import { Mail, Linkedin, Github, Send, Terminal, MapPin } from "lucide-react";
-
+import { useState } from "react";
 export function ContactSection() {
+    const [submitted, setSubmitted] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
     return (
         <section id="contact" className="min-h-screen bg-[#020202] relative overflow-hidden flex flex-col items-center py-20 px-6">
             {/* Ambient Neural Glows */}
@@ -21,7 +23,7 @@ export function ContactSection() {
                         className="flex items-center justify-center gap-4 text-primary font-mono text-[10px] uppercase tracking-[0.6em] opacity-60"
                     >
                         <Terminal className="w-3.5 h-3.5" />
-                        UPLINK_SYTEM_v4
+                        UPLINK_SYSTEM_v4
                     </motion.div>
                     <motion.h2
                         initial={{ opacity: 0, y: 15 }}
@@ -60,7 +62,8 @@ export function ContactSection() {
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group relative"
+                                    className="group relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-2xl"
+                                    aria-label={social.label === "GIT" ? "GitHub profile" : social.label === "LINKED" ? "LinkedIn profile" : "Email"}
                                 >
                                     <div className="w-14 h-14 rounded-2xl glass border-white/10 flex items-center justify-center text-white/40 group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-500">
                                         {social.icon}
@@ -77,29 +80,64 @@ export function ContactSection() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.98 }}
                         whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                         className="lg:col-span-7 glass p-8 md:p-10 rounded-[2.5rem] border-white/12 relative shadow-2xl flex flex-col justify-between"
                     >
-                        <div className="space-y-6">
+                        <form
+                            onSubmit={async (e) => {
+                                e.preventDefault();
+                                const form = e.currentTarget;
+                                const data = new FormData(form);
+                                setSubmitting(true);
+                                try {
+                                    // Replace YOUR_FORM_ID with your Formspree form ID from https://formspree.io
+                                    const res = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
+                                        method: "POST",
+                                        body: data,
+                                        headers: { Accept: "application/json" },
+                                    });
+                                    if (res.ok) setSubmitted(true);
+                                } finally {
+                                    setSubmitting(false);
+                                }
+                            }}
+                            className="space-y-6"
+                        >
                             <div className="grid md:grid-cols-2 gap-6">
-                                <FormInput label="Ident_Name" placeholder="SYN_01" type="text" />
-                                <FormInput label="Email_Buffer" placeholder="user@source.ai" type="email" />
+                                <FormInput name="name" label="Name" placeholder="Your name" type="text" />
+                                <FormInput name="email" label="Email" placeholder="you@example.com" type="email" />
                             </div>
                             <div className="space-y-4">
-                                <label className="text-[10px] font-mono text-primary uppercase tracking-[0.4em] font-black block ml-1">Instruction_Set</label>
+                                <label htmlFor="message" className="text-[10px] font-mono text-primary uppercase tracking-[0.4em] font-black block ml-1">Message</label>
                                 <textarea
+                                    id="message"
+                                    name="message"
                                     rows={5}
-                                    className="w-full bg-white/[0.03] border border-white/15 rounded-3xl px-8 py-5 focus:outline-none focus:border-primary/40 focus:bg-primary/5 transition-all text-white placeholder:text-white/10 resize-none text-sm leading-relaxed"
-                                    placeholder="Transmit your message bundle..."
+                                    required
+                                    className="w-full bg-white/[0.03] border border-white/15 rounded-3xl px-8 py-5 focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/20 focus:bg-primary/5 transition-all duration-200 text-white placeholder:text-white/20 resize-none text-sm leading-relaxed"
+                                    placeholder="Your message..."
                                 />
                             </div>
 
-                            <button className="w-fit flex items-center gap-4 px-10 py-5 rounded-2xl bg-white text-black font-black uppercase text-[10px] tracking-widest hover:scale-105 active:scale-95 transition-all relative overflow-hidden group shadow-[0_20px_40px_rgba(255,255,255,0.05)]">
-                                <span>INITIATE_UPLINK</span>
-                                <div className="w-6 h-6 rounded-full bg-black/5 flex items-center justify-center">
-                                    <Send className="w-3 h-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                                </div>
+                            <button
+                                type="submit"
+                                disabled={submitting || submitted}
+                                className="w-fit flex items-center gap-4 px-10 py-5 rounded-2xl bg-white text-black font-black uppercase text-[10px] tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative overflow-hidden group shadow-[0_20px_40px_rgba(255,255,255,0.05)] disabled:opacity-70 disabled:pointer-events-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                            >
+                                {submitted ? (
+                                    <span>Sent</span>
+                                ) : submitting ? (
+                                    <span className="animate-pulse">Sending...</span>
+                                ) : (
+                                    <>
+                                        <span>Send message</span>
+                                        <div className="w-6 h-6 rounded-full bg-black/5 flex items-center justify-center">
+                                            <Send className="w-3 h-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                        </div>
+                                    </>
+                                )}
                             </button>
-                        </div>
+                        </form>
 
                         {/* Status Bar */}
                         <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between text-[7px] font-mono text-white/20 uppercase tracking-[0.5em]">
@@ -133,13 +171,17 @@ export function ContactSection() {
     );
 }
 
-function FormInput({ label, placeholder, type }: { label: string, placeholder: string, type: string }) {
+function FormInput({ name, label, placeholder, type }: { name: string; label: string; placeholder: string; type: string }) {
+    const id = `contact-${name}`;
     return (
         <div className="space-y-4">
-            <label className="text-[10px] font-mono text-primary uppercase tracking-[0.4em] font-black block ml-1">{label}</label>
+            <label htmlFor={id} className="text-[10px] font-mono text-primary uppercase tracking-[0.4em] font-black block ml-1">{label}</label>
             <input
+                id={id}
+                name={name}
                 type={type}
-                className="w-full bg-white/[0.03] border border-white/15 rounded-2xl px-8 py-5 focus:outline-none focus:border-primary/40 focus:bg-primary/5 transition-all text-white placeholder:text-white/10 text-sm"
+                required={type === "email"}
+                className="w-full bg-white/[0.03] border border-white/15 rounded-2xl px-8 py-5 focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/20 focus:bg-primary/5 transition-all duration-200 text-white placeholder:text-white/20 text-sm"
                 placeholder={placeholder}
             />
         </div>
@@ -148,7 +190,7 @@ function FormInput({ label, placeholder, type }: { label: string, placeholder: s
 
 function FooterLink({ label, href }: { label: string, href: string }) {
     return (
-        <a href={href} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors hover:tracking-[0.8em] duration-500">
+        <a href={href} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors hover:tracking-[0.8em] duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded">
             {label}
         </a>
     );

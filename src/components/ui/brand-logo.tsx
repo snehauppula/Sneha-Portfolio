@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export function BrandLogo() {
@@ -36,10 +37,11 @@ export function BrandLogo() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="fixed top-8 left-8 z-[100] pointer-events-auto"
         >
-            <motion.div
-                className="flex items-center gap-4 group cursor-pointer"
-                whileHover="hover"
-            >
+            <Link href="/" className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-lg">
+                <motion.div
+                    className="flex items-center gap-4 group cursor-pointer"
+                    whileHover="hover"
+                >
                 {/* Neural Sigil Core */}
                 <div className="relative w-12 h-12 flex items-center justify-center">
                     {/* Background Geometric Sigil */}
@@ -145,6 +147,7 @@ export function BrandLogo() {
                     </AnimatePresence>
                 </div>
             </motion.div>
+            </Link>
         </motion.div>
     );
 }

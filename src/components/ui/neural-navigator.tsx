@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, AnimatePresence, useSpring, useMotionValue, useTransform } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useSpring, useMotionValue } from "framer-motion";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Terminal, User, Cpu, Database, Send, History, GraduationCap } from "lucide-react";
 import { useLenis } from "lenis/react";
 
@@ -84,12 +85,14 @@ function NavButton({ item, isActive, isHovered, onHover, onLeave }: any) {
 
             {/* Magnetic Button Container */}
             <motion.button
+                type="button"
                 onClick={() => scrollToSection(item.id)}
                 style={{ x, y }}
-                className={`relative w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center transition-all duration-700 ${isActive
+                aria-label={`Go to ${item.label}`}
+                className={`relative w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center transition-all duration-300 ${isActive
                     ? "bg-primary text-primary-foreground shadow-[0_0_40px_rgba(168,85,247,0.6)] border-transparent"
                     : "glass text-white/30 border-white/5 hover:text-white group-hover:border-primary/20"
-                    }`}
+                    } focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background`}
             >
                 <motion.div
                     animate={isActive ? { scale: [1, 1.15, 1] } : {}}
@@ -119,10 +122,13 @@ function NavButton({ item, isActive, isHovered, onHover, onLeave }: any) {
 }
 
 export function NeuralNavigator() {
+    const pathname = usePathname();
     const [activeSection, setActiveSection] = useState("hero");
     const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+    const isHome = pathname === "/";
 
     useEffect(() => {
+        if (!isHome) return;
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -140,10 +146,12 @@ export function NeuralNavigator() {
         });
 
         return () => observer.disconnect();
-    }, []);
+    }, [isHome]);
 
     const activeIndex = navItems.findIndex(i => i.id === activeSection);
     const progressLineHeight = (activeIndex / (navItems.length - 1)) * 100;
+
+    if (!isHome) return null;
 
     return (
         <div className="fixed right-4 md:right-8 lg:right-12 top-1/2 -translate-y-1/2 z-[100] hidden lg:flex flex-col gap-6 md:gap-8 lg:gap-10 py-12">

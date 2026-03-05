@@ -33,7 +33,7 @@ export function CustomCursor() {
     }, [cursorX, cursorY]);
 
     return (
-        <>
+        <div className="fixed inset-0 pointer-events-none z-[10000] md:block hidden" aria-hidden="true">
             <motion.div
                 className="fixed top-0 left-0 w-4 h-4 bg-primary rounded-full pointer-events-none z-[10000] mix-blend-difference"
                 style={{
@@ -65,6 +65,6 @@ export function CustomCursor() {
                     opacity: isVisible ? 1 : 0,
                 }}
             />
-        </>
+        </div>
     );
 }

@@ -1,310 +1,76 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, ArrowUpRight, Code2, X, Activity } from "lucide-react";
-import Image from "next/image";
-import { useRef, useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight, Cpu, Workflow } from "lucide-react";
+import { categories } from "@/data/projects";
 
-interface Project {
-    title: string;
-    description: string;
-    tech: string[];
-    image: string;
-    id: string;
-    color: string;
-}
-
-const projects: Project[] = [
-    {
-        title: "College Prediction System",
-        description: "An advanced predictive engine designed to forecast academic placements with surgical precision. Built on high-dimensional counseling datasets with an optimized MLOps pipeline.",
-        tech: ["Python", "Flask", "Pandas", "Scikit"],
-        image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop",
-        id: "01",
-        color: "#A855F7" // Purple
-    },
-    {
-        title: "Mini Music Predictor",
-        description: "A classification-based intelligence system that deciphers user music preferences. It transforms complex audio features into actionable preference clusters.",
-        tech: ["ML", "Python", "Matplotlib"],
-        image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=2070&auto=format&fit=crop",
-        id: "02",
-        color: "#EAB308" // Yellow
-    },
-    {
-        title: "CleanData Visualization",
-        description: "Automated data sanitation meets high-fidelity visualization. This tool purges noise and reveals patterns in complex datasets with zero-latency insights.",
-        tech: ["Streamlit", "Numpy", "Seaborn"],
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
-        id: "03",
-        color: "#10B981" // Emerald
-    },
-    {
-        title: "Flask Content Manager",
-        description: "A robust backend architecture for content management. Built for high-availability environments with structured secondary-key database models.",
-        tech: ["Flask", "SQLAlchemy", "Postgres"],
-        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2026&auto=format&fit=crop",
-        id: "04",
-        color: "#3B82F6" // Blue
-    }
-];
+const categoryIcons: Record<string, React.ReactNode> = {
+  "data-science": <Cpu className="w-6 h-6" />,
+  automation: <Workflow className="w-6 h-6" />,
+};
 
 export function ProjectsSection() {
-    const [selectedId, setSelectedId] = useState<string | null>(null);
-    const [hoveredId, setHoveredId] = useState<string | null>(null);
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
-    const [canScrollLeft, setCanScrollLeft] = useState(false);
-    const [canScrollRight, setCanScrollRight] = useState(true);
-    const activeProject = projects.find(p => p.id === selectedId);
+  return (
+    <section
+      id="projects"
+      className="min-h-screen bg-[#020202] py-20 md:py-28 relative overflow-hidden flex flex-col justify-center"
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_20%,rgba(168,85,247,0.06),transparent_50%)]" />
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)`,
+          backgroundSize: "48px 48px",
+        }}
+      />
 
-    const checkScroll = () => {
-        if (scrollContainerRef.current) {
-            const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-            setCanScrollLeft(scrollLeft > 0);
-            setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1); // -1 for sub-pixel rounding
-        }
-    };
+      <div className="max-w-4xl mx-auto px-6 relative z-10 w-full">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-14"
+        >
+          <p className="text-[10px] font-mono text-primary/70 uppercase tracking-[0.35em] mb-3">
+            By category
+          </p>
+          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">
+            Projects<span className="text-primary">.</span>
+          </h2>
+        </motion.div>
 
-    useEffect(() => {
-        checkScroll();
-        window.addEventListener("resize", checkScroll);
-        return () => window.removeEventListener("resize", checkScroll);
-    }, []);
-
-    return (
-        <section id="projects" className="min-h-screen bg-[#020202] py-12 relative flex flex-col justify-center">
-            <div className="w-full max-w-[1000px] mx-auto px-6 lg:px-12">
-                {/* Header Section */}
-                <div className="mb-12 space-y-4">
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        className="flex items-center gap-4 text-primary font-mono text-[10px] uppercase tracking-[0.5em]"
-                    >
-                        <div className="w-8 h-px bg-primary" />
-                        DATA_WORKS_v1.0
-                    </motion.div>
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase leading-none"
-                    >
-                        PROJECTS<span className="text-glow italic text-primary">.</span>
-                    </motion.h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
+          {categories.map((cat, i) => (
+            <motion.div
+              key={cat.slug}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Link
+                href={`/projects/${cat.slug}`}
+                className="group block h-full rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8 hover:border-primary/30 hover:bg-white/[0.04] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[#020202]"
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mb-5 group-hover:bg-primary/15 transition-colors">
+                  {categoryIcons[cat.slug] ?? <Cpu className="w-6 h-6" />}
                 </div>
-
-                {/* Horizontal Scroll Array */}
-                <div className="relative w-full mx-auto group mt-8">
-                    <div
-                        ref={scrollContainerRef}
-                        onScroll={checkScroll}
-                        className="flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory gap-6 lg:gap-8 relative z-10 w-full max-w-[900px] lg:max-w-[1000px] mx-auto pb-8 pt-4 px-4 md:px-16 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-                    >
-                        {projects.map((project, index) => (
-                            <motion.div
-                                key={project.id}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                                whileHover={{ y: -12, transition: { duration: 0.4, ease: "circOut" } }}
-                                onMouseEnter={() => setHoveredId(project.id)}
-                                onMouseLeave={() => setHoveredId(null)}
-                                onClick={() => setSelectedId(project.id)}
-                                className="group/card cursor-pointer shrink-0 snap-start min-w-[85%] md:min-w-[45%] lg:min-w-[40%] h-[260px] lg:h-[300px] rounded-[2rem] overflow-hidden glass border-white/12 relative transition-all duration-500 hover:border-primary/40 shadow-[0_0_80px_rgba(0,0,0,0.9)]"
-                            >
-                                {/* Base Image */}
-                                <Image
-                                    src={project.image}
-                                    alt={project.title}
-                                    fill
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 1000px"
-                                    className="object-cover grayscale group-[.group\/card]:hover:grayscale-0 group-[.group\/card]:hover:scale-110 transition-all duration-1000 brightness-50 group-[.group\/card]:hover:brightness-100"
-                                />
-
-                                {/* Holographic Aberration Layers */}
-                                <AnimatePresence>
-                                    {hoveredId === project.id && (
-                                        <>
-                                            <motion.div
-                                                initial={{ opacity: 0, x: 0 }}
-                                                animate={{ opacity: 0.4, x: -4 }}
-                                                exit={{ opacity: 0, x: 0 }}
-                                                className="absolute inset-0 z-10 pointer-events-none mix-blend-screen"
-                                            >
-                                                <Image src={project.image} alt="Red" fill sizes="1000px" className="object-cover brightness-150 saturate-200 opacity-50 transition-all duration-500" style={{ filter: "sepia(1) hue-rotate(-50deg) saturate(5)" }} />
-                                            </motion.div>
-                                            <motion.div
-                                                initial={{ opacity: 0, x: 0 }}
-                                                animate={{ opacity: 0.4, x: 4 }}
-                                                exit={{ opacity: 0, x: 0 }}
-                                                className="absolute inset-0 z-10 pointer-events-none mix-blend-screen"
-                                            >
-                                                <Image src={project.image} alt="Blue" fill sizes="1000px" className="object-cover brightness-150 saturate-200 opacity-50 transition-all duration-500" style={{ filter: "sepia(1) hue-rotate(150deg) saturate(5)" }} />
-                                            </motion.div>
-
-                                            {/* Scanner Line */}
-                                            <motion.div
-                                                initial={{ top: "-10%" }}
-                                                animate={{ top: "110%" }}
-                                                transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                                                className="absolute left-0 right-0 h-1.5 bg-primary/60 blur-[6px] z-20 pointer-events-none"
-                                            />
-                                        </>
-                                    )}
-                                </AnimatePresence>
-
-                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90" />
-
-                                <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between z-30">
-                                    <span className="text-[9px] font-mono text-primary uppercase tracking-[0.5em] font-black block">SYSTEM_NODE_{project.id}</span>
-                                    <div className="space-y-2">
-                                        <h3 className="text-xl md:text-3xl font-black text-white uppercase tracking-tighter leading-tight drop-shadow-[0_0_30px_rgba(0,0,0,1)]">
-                                            {project.title}
-                                        </h3>
-                                        <div className="flex items-center gap-3 text-[10px] font-mono text-white/60 uppercase tracking-[0.4em] group-[.group\/card]:hover:text-primary transition-colors">
-                                            INITIALIZE_PROTOCOL <ArrowUpRight className="w-4 h-4 group-[.group\/card]:hover:translate-x-1 group-[.group\/card]:hover:-translate-y-1 transition-transform" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    {/* Navigation Controls */}
-                    <AnimatePresence>
-                        {canScrollLeft && (
-                            <motion.button
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.8 }}
-                                onClick={() => {
-                                    if (scrollContainerRef.current) {
-                                        scrollContainerRef.current.scrollBy({ left: -400, behavior: 'smooth' });
-                                    }
-                                }}
-                                className="absolute left-4 lg:left-12 xl:left-24 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full glass border border-white/10 text-white hover:text-primary hover:border-primary/50 transition-all duration-300 hover:scale-110 shadow-[0_0_30px_rgba(0,0,0,0.5)] bg-black/50 backdrop-blur-md"
-                                aria-label="Scroll left"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
-                            </motion.button>
-                        )}
-                    </AnimatePresence>
-
-                    <AnimatePresence>
-                        {canScrollRight && (
-                            <motion.button
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.8 }}
-                                onClick={() => {
-                                    if (scrollContainerRef.current) {
-                                        scrollContainerRef.current.scrollBy({ left: 400, behavior: 'smooth' });
-                                    }
-                                }}
-                                className="absolute right-4 lg:right-12 xl:right-24 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full glass border border-white/10 text-white hover:text-primary hover:border-primary/50 transition-all duration-300 hover:scale-110 shadow-[0_0_30px_rgba(0,0,0,0.5)] bg-black/50 backdrop-blur-md"
-                                aria-label="Scroll right"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-                            </motion.button>
-                        )}
-                    </AnimatePresence>
-                </div>
-            </div>
-
-            {/* Active Dossier Overlay */}
-            <AnimatePresence>
-                {selectedId && activeProject && (
-                    <div className="fixed inset-0 z-[110] flex items-center justify-center p-6 md:p-12">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setSelectedId(null)}
-                            className="absolute inset-0 bg-black/90 backdrop-blur-2xl"
-                        />
-
-                        <motion.div
-                            layoutId={`project-${activeProject.id}`}
-                            initial={{ opacity: 0, scale: 0.9, y: 30 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 30 }}
-                            className="relative w-full max-w-6xl glass rounded-[3.5rem] border-white/20 overflow-hidden shadow-2xl flex flex-col lg:flex-row min-h-[70vh] shadow-[0_0_50px_rgba(0,0,0,0.8)]"
-                        >
-                            {/* Media Panel */}
-                            <div className="w-full lg:w-1/2 relative h-64 lg:h-auto overflow-hidden">
-                                <Image
-                                    src={activeProject.image}
-                                    alt={activeProject.title}
-                                    fill
-                                    sizes="(max-width: 1024px) 100vw, 50vw"
-                                    className="object-cover"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent hidden lg:block" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent lg:hidden" />
-
-                                {/* Close Button Mobile */}
-                                <button
-                                    onClick={() => setSelectedId(null)}
-                                    className="absolute top-6 right-6 lg:hidden w-12 h-12 rounded-full glass border-white/20 flex items-center justify-center text-white"
-                                >
-                                    <X className="w-6 h-6" />
-                                </button>
-                            </div>
-
-                            {/* Content Panel */}
-                            <div className="w-full lg:w-1/2 p-10 md:p-16 flex flex-col justify-between overflow-y-auto">
-                                <div className="space-y-10">
-                                    <div className="space-y-6">
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex items-center gap-3 text-primary font-mono text-[10px] uppercase tracking-[0.4em]">
-                                                <Activity className="w-4 h-4" />
-                                                LOG_ID: {activeProject.id}
-                                            </div>
-                                            <button
-                                                onClick={() => setSelectedId(null)}
-                                                className="hidden lg:flex w-10 h-10 rounded-full glass border-white/20 items-center justify-center text-white/40 hover:text-white hover:border-primary/40 transition-all"
-                                            >
-                                                <X className="w-5 h-5" />
-                                            </button>
-                                        </div>
-                                        <h3 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter leading-none">
-                                            {activeProject.title}
-                                        </h3>
-                                        <p className="text-lg md:text-xl text-white/40 font-light leading-relaxed">
-                                            {activeProject.description}
-                                        </p>
-                                    </div>
-
-                                    <div className="space-y-8">
-                                        <div className="flex flex-wrap gap-3">
-                                            {activeProject.tech.map((t) => (
-                                                <span key={t} className="px-5 py-2 rounded-full border border-white/10 bg-white/[0.02] text-[10px] font-mono text-white/60 uppercase tracking-widest">
-                                                    {t}
-                                                </span>
-                                            ))}
-                                        </div>
-
-                                        <div className="flex flex-wrap gap-6">
-                                            <button className="flex items-center gap-4 px-10 py-5 rounded-2xl bg-white text-black font-black uppercase text-[11px] tracking-widest hover:scale-105 active:scale-95 transition-all">
-                                                Source Code
-                                                <ExternalLink className="w-4 h-4" />
-                                            </button>
-                                            <button className="w-16 h-16 rounded-2xl glass border-white/20 flex items-center justify-center hover:bg-white/5 transition-all text-white/40 hover:text-white hover:border-primary/40">
-                                                <Github className="w-7 h-7" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="mt-12 pt-8 border-t border-white/5 flex items-center justify-between text-[8px] font-mono text-white/20 uppercase tracking-[0.4em]">
-                                    <span>Status: Project_Unlocked</span>
-                                    <span>Integrity: Verified</span>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
-                )}
-            </AnimatePresence>
-        </section>
-    );
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
+                  {cat.name}
+                </h3>
+                <p className="text-white/50 text-sm leading-relaxed mb-6">
+                  {cat.description}
+                </p>
+                <span className="inline-flex items-center gap-2 text-xs font-medium text-primary">
+                  View projects
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }

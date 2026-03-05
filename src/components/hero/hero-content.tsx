@@ -12,9 +12,9 @@ const textReveal: Variants = {
         opacity: 1,
         y: 0,
         transition: {
-            delay: i * 0.2,
-            duration: 0.8,
-            ease: "easeOut",
+            delay: i * 0.15,
+            duration: 0.6,
+            ease: [0.22, 1, 0.36, 1],
         },
     }),
 };
@@ -115,16 +115,16 @@ export function HeroContent() {
                     >
                         <button
                             onClick={() => scrollTo("projects")}
-                            className="group relative px-10 py-5 rounded-full bg-white text-black font-bold overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+                            className="group relative px-10 py-5 rounded-full bg-white text-black font-bold overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_30px_rgba(255,255,255,0.2)] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                         >
                             <span className="relative z-10">Explore Projects</span>
                             <div className="absolute inset-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                         </button>
                         <button
                             onClick={() => scrollTo("contact")}
-                            className="px-10 py-5 rounded-full border border-white/10 glass font-bold hover:bg-white/5 transition-all hover:scale-105 active:scale-95 text-white"
+                            className="px-10 py-5 rounded-full border border-white/10 glass font-bold hover:bg-white/5 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] text-white focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                         >
-                            Contribute
+                            Get in touch
                         </button>
                     </motion.div>
                 </motion.div>
@@ -133,7 +133,7 @@ export function HeroContent() {
                 <motion.div
                     initial={{ opacity: 0, x: 100, filter: "blur(20px)" }}
                     animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                    transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                     className="relative flex justify-center lg:justify-center order-1 lg:order-2"
                 >
                     <div className="relative w-[300px] h-[400px] md:w-[450px] md:h-[600px] group cursor-pointer">

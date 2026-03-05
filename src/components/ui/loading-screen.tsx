@@ -14,7 +14,7 @@ export function LoadingScreen() {
 
         const timer = setTimeout(() => {
             setLoading(false);
-        }, 2200);
+        }, 1800);
 
         return () => {
             clearTimeout(timer);
@@ -30,10 +30,10 @@ export function LoadingScreen() {
                     initial={{ opacity: 1 }}
                     exit={{
                         opacity: 0,
-                        filter: "blur(10px) brightness(2)",
-                        scale: 1.1
+                        filter: "blur(8px) brightness(1.2)",
+                        scale: 1.02
                     }}
-                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     style={{ position: 'fixed', inset: 0, zIndex: 10000 }}
                     className="bg-background flex flex-col items-center justify-center font-mono"
                 >

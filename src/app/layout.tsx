@@ -41,6 +41,12 @@ export default function RootLayout({
       <body
         className={`${syne.variable} ${inter.variable} ${mono.variable} antialiased font-inter`}
       >
+        <a
+          href="#main-content"
+          className="skip-link"
+        >
+          Skip to main content
+        </a>
         <LoadingScreen />
         <BrandLogo />
         <NeuralNavigator />
@@ -48,7 +54,7 @@ export default function RootLayout({
         <div className="noise" />
         <CustomCursor />
         <SmoothScroll>
-          <main className="relative min-h-screen">
+          <main id="main-content" className="relative min-h-screen" tabIndex={-1}>
             {children}
           </main>
         </SmoothScroll>
