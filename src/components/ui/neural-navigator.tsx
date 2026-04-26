@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Terminal, User, Cpu, Database, Send, History, GraduationCap } from "lucide-react";
 import { useLenis } from "lenis/react";
+import { lenisAnchorScrollOpts } from "@/components/providers/smooth-scroll";
 
 const navItems = [
     { id: "hero", label: "00 // IDENT", icon: <Terminal className="w-4 h-4" /> },
@@ -20,7 +21,7 @@ function NavButton({ item, isActive, isHovered, onHover, onLeave }: any) {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 
-    const springConfig = { damping: 15, stiffness: 150 };
+    const springConfig = { damping: 22, stiffness: 130, mass: 0.45 };
     const x = useSpring(mouseX, springConfig);
     const y = useSpring(mouseY, springConfig);
 
@@ -42,7 +43,7 @@ function NavButton({ item, isActive, isHovered, onHover, onLeave }: any) {
 
     const scrollToSection = (id: string) => {
         if (lenis) {
-            lenis.scrollTo(`#${id}`, { lerp: 0.1 });
+            lenis.scrollTo(`#${id}`, lenisAnchorScrollOpts);
         } else {
             const element = document.getElementById(id);
             if (element) {

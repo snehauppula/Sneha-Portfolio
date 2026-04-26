@@ -27,8 +27,9 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sneha | Data Science || Machine Learning Engineer",
-  description: "Cinematic portfolio of Sneha, a Data Scientist and AI Engineer.",
+  title: "Sneha Uppula | B.Tech AI & ML · Data Science & Machine Learning",
+  description:
+    "Portfolio of Sneha Uppula — B.Tech CSE (AI & ML) at SNIST, Hyderabad. Data analysis, ML, NLP, Power BI, AWS, and automation.",
 };
 
 export default function RootLayout({

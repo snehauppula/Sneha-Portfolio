@@ -24,39 +24,47 @@ export interface Project {
 export const projectsByCategory: Record<CategorySlug, Project[]> = {
   "data-science": [
     {
-      title: "College Prediction System",
+      title: "RiskSense AI",
       description:
-        "ML system that predicts possible colleges from historical counseling data and rank inputs.",
-      tech: ["Python", "Pandas", "Scikit-learn", "Streamlit"],
-      github: "#",
+        "Credit risk prediction using financial datasets: preprocessing, feature engineering, and class imbalance handling. Models evaluated with precision, recall, and F1.",
+      tech: ["Python", "scikit-learn", "Pandas", "Classification"],
+      github: "https://github.com/snehauppula/Credit-Risk-Assessment",
+      demo: "https://credit-risk-predictor-sneha.streamlit.app/",
+    },
+    {
+      title: "CiviGuard AI",
+      description:
+        "Smart civic complaint analyzer: NLP pipeline, trained classifier, and a Streamlit app to explore complaints interactively. Full methodology, notebook, HTML report, and setup are documented in the GitHub repository.",
+      tech: ["Python", "Streamlit", "NLP", "scikit-learn"],
+      github: "https://github.com/snehauppula/Smart-Complaint-Analyzer-Civiguard",
+      demo: "https://smart-complaint-analyzer-civiguard.streamlit.app/",
+    },
+    {
+      title: "GoTogether Rides — Power BI",
+      description:
+        "Power BI dashboard for ride analytics: interactive report (.pbix) and a PDF export for stakeholders. Files and context live in the GitHub repository.",
+      tech: ["Power BI", "Dashboard", "Analytics", "Visualization"],
+      github: "https://github.com/snehauppula/PowerBi-Dashboard",
       demo: "#",
     },
     {
-      title: "Mini Music Predictor",
+      title: "CineMatch — Movie Recommender",
       description:
-        "Predicts song popularity using ML from audio features and music dataset analysis.",
-      tech: ["Python", "Pandas", "Matplotlib", "ML"],
-      github: "#",
-      demo: "#",
-    },
-    {
-      title: "CleanData Visualizer",
-      description:
-        "Automated data preprocessing: clean datasets, handle missing values, and generate visual insights.",
-      tech: ["Python", "Pandas", "Streamlit", "Data Viz"],
-      github: "#",
-      demo: "#",
+        "Search movies by title and surface similar picks using TF-IDF content features plus collaborative filtering on ratings. Streamlit UI for search, browse, and recommendations; MovieLens-friendly data loading documented on GitHub.",
+      tech: ["Python", "Streamlit", "scikit-learn", "Recommender systems"],
+      github: "https://github.com/snehauppula/Movie-Recommendation-System-ML",
+      demo: "https://recommendation-system-ml-movie.streamlit.app/",
     },
   ],
   automation: [
-    // Add your automation workflow projects here. Example:
-    // {
-    //   title: "Report Generator",
-    //   description: "Automated daily reports from multiple data sources.",
-    //   tech: ["Python", "Cron", "Slack"],
-    //   github: "https://github.com/...",
-    //   demo: "#",
-    // },
+    {
+      title: "Effortless Events",
+      description:
+        "Smart event check-in: registrations, payment verification, unique QR codes for attendees, and n8n workflows for registration, validation, and live check-in.",
+      tech: ["n8n", "Automation", "QR codes", "Workflows"],
+      github: "https://github.com/snehauppula/Effortless-Events",
+      demo: "https://effortless-events-phi.vercel.app/",
+    },
   ],
 };
 

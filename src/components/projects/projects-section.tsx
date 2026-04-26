@@ -14,7 +14,7 @@ export function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="min-h-screen bg-[#020202] py-20 md:py-28 relative overflow-hidden flex flex-col justify-center"
+      className="relative overflow-hidden bg-[#020202] py-10 md:py-14 lg:py-16"
     >
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_20%,rgba(168,85,247,0.06),transparent_50%)]" />
       <div
@@ -30,7 +30,7 @@ export function ProjectsSection() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="mb-6 text-center md:mb-8"
         >
           <p className="text-[10px] font-mono text-primary/70 uppercase tracking-[0.35em] mb-3">
             By category

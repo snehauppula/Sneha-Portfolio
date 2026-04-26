@@ -102,7 +102,7 @@ export function AboutSection() {
             ref={sectionRef}
             onMouseMove={handleMouseMove}
             id="about"
-            className="relative min-h-screen bg-background py-12 px-6 md:px-[8vw] flex flex-col items-center justify-center overflow-hidden"
+            className="relative flex flex-col items-center overflow-hidden bg-background px-6 py-10 md:px-[8vw] md:py-14 lg:py-16"
         >
             <NeuralNetwork mouseX={springX} mouseY={springY} />
 
@@ -120,20 +120,20 @@ export function AboutSection() {
                 MACHINE LEARNING MACHINE LEARNING
             </motion.div>
 
-            <div className="max-w-7xl w-full z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="z-10 grid w-full max-w-7xl grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-10">
 
                 {/* Left Side: The "Core" Ident */}
-                <div className="lg:col-span-4 space-y-12">
-                    <div className="space-y-4 pt-3 md:pt-6">
+                <div className="space-y-8 lg:col-span-4">
+                    <div className="space-y-4 pt-0 md:pt-2">
                         <h2 className="text-6xl md:text-[7vw] font-black text-white tracking-tighter uppercase leading-none">
                             ABOUT<span className="text-primary italic">.</span>
                         </h2>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-8">
+                    <div className="grid grid-cols-1 gap-6">
                         {[
-                            { label: "Systems Built", value: "24+", desc: "Deployed production models" },
-                            { label: "Data Scale", value: "TBs+", desc: "Processed daily volume" }
+                            { label: "Academic CGPA", value: "9.64", desc: "B.Tech AI & ML — SNIST" },
+                            { label: "Recognition", value: "Finalist", desc: "AI Hack Day — Tech Mahindra" }
                         ].map((stat, i) => (
                             <motion.div
                                 key={i}
@@ -152,33 +152,34 @@ export function AboutSection() {
                 </div>
 
                 {/* Right Side: Narrative & Philosophy */}
-                <div className="lg:col-span-8 lg:pl-12 space-y-16">
+                <div className="space-y-10 lg:col-span-8 lg:pl-8">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="space-y-12"
+                        className="space-y-8"
                     >
                         <div className="flex items-center gap-4 text-primary/40 font-mono text-[10px] uppercase tracking-[0.4em]">
                             UPLINK_STATUS: SECURED // GENESIS_PROTOCOL
                         </div>
                         <p className="text-3xl md:text-5xl lg:text-5xl text-white font-black leading-[1.1] tracking-tighter uppercase italic">
-                            I specialize in bridging the gap <br />
-                            between <span className="text-primary">raw complexity</span> <br />
-                            and <span className="text-glow">human intuition.</span>
+                            I turn <span className="text-primary">messy data</span> <br />
+                            into <span className="text-glow">clear decisions</span> <br />
+                            and useful products.
                         </p>
 
                         <div className="h-px w-full bg-gradient-to-r from-primary/50 to-transparent" />
 
                         <p className="text-lg md:text-2xl text-muted-foreground leading-relaxed font-light max-w-3xl">
-                            With a focus on predictive architectures and high-performance ML pipelines,
-                            I don&apos;t just build models — I architect decision engines that drive measurable impact.
-                            My approach combines rigorous statistical foundations with cutting-edge engineering.
+                            I&apos;m Sneha Uppula, a B.Tech CSE (AI &amp; ML) undergraduate at SNIST, Hyderabad.
+                            I work across data analysis, machine learning, and NLP—from dashboards and experiments
+                            to AWS-backed features, APIs, and integration-style automation. Active in the Student Developer
+                            Community (SDC); co-organized a technical event at Mahindra University.
                         </p>
                     </motion.div>
 
                     {/* Technical Stack Tags */}
-                    <div className="flex flex-wrap gap-3 pt-8">
-                        {["Deep Learning", "Predictive Analytics", "CV", "NLP", "MLOps"].map((tech, i) => (
+                    <div className="flex flex-wrap gap-3 pt-5">
+                        {["Python", "ML & classification", "NLP", "Power BI", "AWS", "Streamlit", "Integrations"].map((tech, i) => (
                             <span key={i} className="px-5 py-2 rounded-full border border-white/10 glass text-[10px] font-mono uppercase tracking-widest text-white/40 hover:text-primary hover:border-primary/30 transition-colors">
                                 {tech}
                             </span>

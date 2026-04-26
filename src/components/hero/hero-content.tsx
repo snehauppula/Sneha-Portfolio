@@ -1,10 +1,12 @@
 "use client";
 
 import { motion, Variants, useMotionValue, useSpring } from "framer-motion";
-import { LucideMousePointer2 } from "lucide-react";
+import { Download, LucideMousePointer2, User } from "lucide-react";
+import { heroSocialLinks } from "@/data/hero-social";
 import Image from "next/image";
 import { useRef, MouseEvent } from "react";
 import { useLenis } from "lenis/react";
+import { lenisAnchorScrollOpts } from "@/components/providers/smooth-scroll";
 
 const textReveal: Variants = {
     hidden: { opacity: 0, y: 20 },
@@ -18,6 +20,16 @@ const textReveal: Variants = {
         },
     }),
 };
+
+const RESUME_DRIVE_FILE_ID = "1sQnWnu9epTTNHXjHyVJy6wY7DfGJdHcT";
+
+/** Opens Drive preview in a new tab and export-download in another (same gesture). */
+function openResumePreviewAndDownload() {
+    const preview = `https://drive.google.com/file/d/${RESUME_DRIVE_FILE_ID}/view?usp=drive_link`;
+    const download = `https://drive.google.com/uc?export=download&id=${RESUME_DRIVE_FILE_ID}`;
+    window.open(preview, "_blank", "noopener,noreferrer");
+    window.open(download, "_blank", "noopener,noreferrer");
+}
 
 export function HeroContent() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -48,7 +60,7 @@ export function HeroContent() {
 
     const scrollTo = (id: string) => {
         if (lenis) {
-            lenis.scrollTo(`#${id}`, { lerp: 0.1 });
+            lenis.scrollTo(`#${id}`, lenisAnchorScrollOpts);
         } else {
             const element = document.getElementById(id);
             if (element) {
@@ -63,24 +75,24 @@ export function HeroContent() {
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             id="hero"
-            className="relative min-h-screen flex items-center justify-center py-20 px-6 md:px-[6vw] overflow-hidden"
+            className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-6 py-8 md:px-[6vw] md:py-12"
         >
-            <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            <div className="max-w-7xl w-full grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-14">
 
                 {/* Left Side: Storytelling & Action */}
                 <motion.div
                     initial="hidden"
                     animate="visible"
-                    className="space-y-10 lg:pr-10 z-10 text-left order-2 lg:order-1"
+                    className="z-10 order-2 space-y-8 text-left lg:order-1 lg:pr-8"
                 >
-                    <div className="space-y-6">
+                    <div className="space-y-5">
                         <motion.div
                             custom={0}
                             variants={textReveal}
                             className="inline-block"
                         >
                             <span className="px-5 py-2 rounded-full border border-primary/20 bg-primary/5 text-primary font-mono text-xs uppercase tracking-[0.4em] backdrop-blur-sm">
-                                Data Science || Machine Learning Engineer
+                                AI/ML · models, analytics &amp; automation
                             </span>
                         </motion.div>
 
@@ -103,7 +115,11 @@ export function HeroContent() {
                             className="pt-4"
                         >
                             <p className="text-muted-foreground text-lg md:text-xl max-w-xl leading-relaxed font-light">
-                                From raw datasets to deployed machine learning systems, I design predictive architectures that transform complexity into precision — powered by <span className="text-white/80 font-medium">Python</span>, modern <span className="text-white/80 font-medium">ML frameworks</span>, and relentless curiosity.
+                                Undergraduate at <span className="text-white/80 font-medium">SNIST</span>, Hyderabad.
+                                I build <span className="text-white/80 font-medium">ML and NLP</span> projects, analytics
+                                with <span className="text-white/80 font-medium">Power BI</span>,{" "}
+                                <span className="text-glow font-semibold text-primary">automations</span>, and{" "}
+                                <span className="text-white/80 font-medium">AWS</span>.
                             </p>
                         </motion.div>
                     </div>
@@ -111,21 +127,47 @@ export function HeroContent() {
                     <motion.div
                         custom={3}
                         variants={textReveal}
-                        className="flex flex-wrap gap-5 justify-center lg:justify-start"
+                        className="flex flex-col items-center gap-5 pt-1 lg:items-start"
                     >
-                        <button
-                            onClick={() => scrollTo("projects")}
-                            className="group relative px-10 py-5 rounded-full bg-white text-black font-bold overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_30px_rgba(255,255,255,0.2)] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                        <div
+                            className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 lg:justify-start"
+                            role="list"
+                            aria-label="Social and contact links"
                         >
-                            <span className="relative z-10">Explore Projects</span>
-                            <div className="absolute inset-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                        </button>
-                        <button
-                            onClick={() => scrollTo("contact")}
-                            className="px-10 py-5 rounded-full border border-white/10 glass font-bold hover:bg-white/5 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] text-white focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                        >
-                            Get in touch
-                        </button>
+                            {heroSocialLinks.map(({ href, label, Icon }) => (
+                                <a
+                                    key={label}
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    role="listitem"
+                                    aria-label={label}
+                                    className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-primary/90 shadow-sm backdrop-blur-sm transition-all duration-300 hover:scale-[1.05] hover:border-primary/40 hover:bg-primary/10 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-12 sm:w-12 sm:rounded-2xl"
+                                >
+                                    <Icon className="h-[1.15rem] w-[1.15rem] sm:h-5 sm:w-5" aria-hidden />
+                                </a>
+                            ))}
+                        </div>
+
+                        <div className="flex w-full max-w-xl flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
+                            <button
+                                type="button"
+                                onClick={() => scrollTo("contact")}
+                                className="inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-primary/35 bg-transparent px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-white shadow-[0_0_24px_-8px_rgba(168,85,247,0.35)] transition-all duration-300 hover:border-primary/60 hover:bg-primary/10 hover:shadow-[0_0_32px_-6px_rgba(168,85,247,0.45)] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.98] sm:w-auto sm:min-w-[12rem]"
+                            >
+                                <User className="h-4 w-4 text-primary" aria-hidden />
+                                Contact me
+                            </button>
+                            <button
+                                type="button"
+                                onClick={openResumePreviewAndDownload}
+                                aria-label="Open resume on Google Drive (preview) and start download"
+                                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-primary via-primary to-violet-600 px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-[0_12px_40px_-12px_rgba(168,85,247,0.55)] transition-all duration-300 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.98] sm:w-auto sm:min-w-[12rem]"
+                            >
+                                Get resume
+                                <Download className="h-4 w-4 opacity-90" aria-hidden />
+                            </button>
+                        </div>
                     </motion.div>
                 </motion.div>
 
@@ -192,13 +234,13 @@ export function HeroContent() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 2, duration: 1 }}
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+                className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3"
             >
-                <div className="w-px h-16 bg-gradient-to-b from-transparent via-primary/50 to-transparent" />
+                <div className="h-12 w-px bg-gradient-to-b from-transparent via-primary/50 to-transparent" />
                 <motion.div
                     animate={{ y: [0, 5, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
-                    className="flex flex-col items-center gap-2"
+                    className="flex flex-col items-center gap-1.5"
                 >
                     <span className="text-[9px] uppercase tracking-[0.6em] text-muted-foreground">Scroll</span>
                     <LucideMousePointer2 className="w-4 h-4 text-primary" />

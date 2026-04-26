@@ -15,39 +15,39 @@ interface EducationRecord {
 const records: EducationRecord[] = [
     {
         id: "rec-01",
-        level: "B.Tech – Computer Science (AIML)",
-        org: "SNIST",
-        date: "2021 — 2025",
-        grade: "9.65 CGPA",
-        details: ["Machine Learning", "Data Structures", "DBMS", "Linear Algebra"]
+        level: "B.Tech – CSE (AI & ML)",
+        org: "Sreenidhi Institute of Science and Technology (SNIST)",
+        date: "2023 — Present",
+        grade: "9.64 CGPA",
+        details: ["Artificial Intelligence", "Machine Learning", "Data structures", "Core CS"]
     },
     {
         id: "rec-02",
         level: "Intermediate (MPC)",
-        org: "Sri Chaitanya Junior Kalashala",
-        date: "2019 — 2021",
-        grade: "98.9%",
+        org: "Sri Chaitanya Junior College",
+        date: "2022",
+        grade: "9.89",
         details: ["Mathematics", "Physics", "Chemistry"]
     },
     {
         id: "rec-03",
         level: "Secondary School (SSC)",
         org: "Jyothi IIT Academy",
-        date: "2019",
-        grade: "10.0 CGPA",
-        details: ["Academic Excellence", "Core Sciences", "Computational Logic"]
+        date: "2020",
+        grade: "10.0 GPA",
+        details: ["Strong foundation in sciences", "Mathematics"]
     }
 ];
 
 export function EducationSection() {
     return (
-        <section id="education" className="min-h-screen bg-[#020202] py-8 relative flex items-center justify-center overflow-hidden">
+        <section id="education" className="relative overflow-hidden bg-[#020202] py-10 md:py-14 lg:py-16">
             {/* Background Ambience */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(129,140,248,0.03),transparent_50%)]" />
 
             <div className="max-w-5xl mx-auto px-6 relative z-10 w-full">
                 {/* Header: Fixed Single View Style */}
-                <div className="text-center mb-6 space-y-4">
+                <div className="mb-5 space-y-3 text-center">
                     <motion.span
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}

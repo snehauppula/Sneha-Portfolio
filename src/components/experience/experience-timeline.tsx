@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { ArrowUpRight, Zap, Terminal, Activity, Briefcase, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Zap, Terminal, Activity, ChevronRight } from "lucide-react";
 
 interface ProfessionalRole {
     id: string;
@@ -18,44 +18,53 @@ interface ProfessionalRole {
 const roles: ProfessionalRole[] = [
     {
         id: "role-01",
-        title: "Data Science Lead",
-        org: "CIVIGUARD",
-        date: "24' - PRES",
-        tag: "Lead_Ops",
-        impact: "Architecting automated predictive pipelines for large-scale civic systems.",
+        title: "Data Analyst",
+        org: "Linq (GoTogether Rides)",
+        date: "Present",
+        tag: "Analytics",
+        impact: "Analyzed user and ride data to surface travel behavior, ride-sharing preferences, and spending patterns.",
         description: [
-            "Leading core data preprocessing & predictive model development for civic utility optimization.",
-            "Reduced manual cycle time by 40% through MLOps automation and cloud-native ingestion.",
-            "Implementing real-time validation in Python/Django stacks for deployment integrity."
+            "Built interactive Power BI dashboards for ride frequency, user intent, and usage trends.",
+            "Translated analysis into actionable insights to support decisions and engagement strategy."
         ],
-        metrics: "94% Accuracy Baseline"
+        metrics: "Power BI · Behavioral insights"
     },
     {
         id: "role-02",
-        title: "AI & ML Developer",
-        org: "TECH PROJECTS",
-        date: "23' - 24'",
-        tag: "Core_ML",
-        impact: "Engineering end-to-end predictive architectures for high-precision tasks.",
+        title: "Developer",
+        org: "Codex Careers",
+        date: "Present",
+        tag: "Full_stack_AI",
+        impact: "Built features for a B.Tech student platform including ATS resume scoring and interview prep.",
         description: [
-            "Developed deployment subsystems using Flask and Streamlit for rapid prototyping.",
-            "Performed outlier detection on high-dimensional datasets using advanced statistical methods.",
-            "Optimized model performance through automated hyperparameter tuning and cross-validation."
+            "Implemented AI-driven resume analysis and improvement suggestions.",
+            "Used AWS Lambda, S3, and DynamoDB for backend processing and data management.",
+            "Designed scalable workflows for feature development and deployment."
         ],
-        metrics: "Production-Ready Deployment"
+        metrics: "AWS serverless · AI features"
     },
     {
         id: "role-03",
-        title: "Hackathon Finalist",
-        org: "TECH MAHINDRA",
-        date: "2024",
-        tag: "Innov_Unit",
-        impact: "Rapidly prototyping civic-tech engines for real-world impact evaluation.",
+        title: "Co-Founder",
+        org: "Flowsite AI",
+        date: "Present",
+        tag: "Founder",
+        impact: "Co-founded an AI-focused initiative exploring automation and intelligent systems for real problems.",
         description: [
-            "Built a competitive classification engine for AI Day evaluation within a 24-hour cycle.",
-            "Demonstrated scalability and integration potential to industry judging panels."
+            "Developed AI-driven workflows and tools for real-world use cases.",
+            "Collaborated across ideation, build, and delivery of AI-based projects."
         ],
-        metrics: "Innovation Peak Finalist"
+        metrics: "Automation · Product discovery"
+    },
+    {
+        id: "role-04",
+        title: "Co-organizer",
+        org: "Mahindra University",
+        date: "2025",
+        tag: "Events",
+        impact: "Co-organized a technical event at Mahindra University, contributing to planning and execution.",
+        description: [],
+        metrics: "Planning · Execution"
     }
 ];
 
@@ -75,7 +84,7 @@ export function ExperienceTimeline() {
     };
 
     return (
-        <section id="experience" className="min-h-screen bg-[#020202] py-8 relative overflow-hidden flex flex-col items-center justify-center border-b border-white/5">
+        <section id="experience" className="relative overflow-hidden border-b border-white/5 bg-[#020202] py-10 md:py-14 lg:py-16">
             {/* Background Data Stream */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.01)_1px,transparent_1px)] bg-[size:100px_100px] -z-10" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(168,85,247,0.05)_0%,transparent_70%)]" />
@@ -96,8 +105,8 @@ export function ExperienceTimeline() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-1 bg-white/5 border border-white/10 rounded-[2.5rem] overflow-hidden glass">
 
                     {/* Role Sidebar (Tabs) */}
-                    <div className="lg:col-span-4 border-r border-white/10 p-4 lg:p-8 space-y-2 bg-black/20">
-                        <span className="text-[10px] font-mono text-white/20 uppercase tracking-[0.4em] block mb-6 pl-4">Registry_Select</span>
+                    <div className="space-y-2 border-r border-white/10 bg-black/20 p-4 lg:col-span-4 lg:p-6">
+                        <span className="mb-4 block pl-4 font-mono text-[10px] uppercase tracking-[0.4em] text-white/20">Registry_Select</span>
                         {roles.map((role) => (
                             <button
                                 key={role.id}
@@ -105,7 +114,7 @@ export function ExperienceTimeline() {
                                     setActiveId(role.id);
                                     setIsVerified(false);
                                 }}
-                                className={`w-full group relative p-6 rounded-2xl flex items-center justify-between transition-all duration-500 text-left ${activeId === role.id
+                                className={`group relative flex w-full items-center justify-between rounded-2xl p-5 text-left transition-all duration-500 ${activeId === role.id
                                     ? "bg-primary/10 border-primary/20 shadow-xl"
                                     : "hover:bg-white/5 border-transparent"
                                     } border`}
@@ -134,7 +143,7 @@ export function ExperienceTimeline() {
                     </div>
 
                     {/* Data Pane (Experience Logs) */}
-                    <div className="lg:col-span-8 p-4 lg:p-8 min-h-[400px] flex flex-col justify-between relative overflow-hidden">
+                    <div className="relative flex min-h-[240px] flex-col justify-between overflow-hidden p-4 md:min-h-[260px] lg:col-span-8 lg:min-h-[280px] lg:p-6">
                         {/* Logs Watermark */}
                         <div className="absolute top-10 right-10 text-[100px] font-black text-white/[0.02] pointer-events-none select-none italic tracking-tighter">
                             {activeRole.tag}
@@ -166,10 +175,10 @@ export function ExperienceTimeline() {
                                 }}
                                 exit={{ opacity: 0, x: -20, filter: "blur(10px)" }}
                                 transition={{ duration: 0.4, ease: "circOut" }}
-                                className="space-y-8 relative z-10"
+                                className="relative z-10 space-y-6"
                             >
                                 {/* Role Header */}
-                                <div className="space-y-4">
+                                <div className="space-y-3">
                                     <div className="flex items-center gap-4">
                                         <div className="px-3 py-1 bg-primary/10 border border-primary/20 rounded-full text-[9px] font-mono text-primary uppercase tracking-[0.3em] font-black">
                                             Status_Active
@@ -186,12 +195,13 @@ export function ExperienceTimeline() {
                                 </div>
 
                                 {/* Impact Description */}
-                                <div className="space-y-4">
-                                    <p className="text-base md:text-lg text-white/90 font-light leading-relaxed max-w-2xl border-l-2 border-primary/30 pl-6">
+                                <div className="space-y-3">
+                                    <p className="max-w-2xl border-l-2 border-primary/30 pl-5 text-base font-light leading-relaxed text-white/90 md:text-lg md:pl-6">
                                         {activeRole.impact}
                                     </p>
 
-                                    <ul className="space-y-4">
+                                    {activeRole.description.length > 0 && (
+                                    <ul className="space-y-3">
                                         {activeRole.description.map((item, i) => (
                                             <motion.li
                                                 key={i}
@@ -207,6 +217,7 @@ export function ExperienceTimeline() {
                                             </motion.li>
                                         ))}
                                     </ul>
+                                    )}
                                 </div>
                             </motion.div>
                         </AnimatePresence>

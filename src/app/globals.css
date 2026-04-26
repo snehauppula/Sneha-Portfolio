@@ -51,8 +51,19 @@
     @apply border-border;
   }
 
+  /* Anchor targets clear fixed UI (skip hero at top) */
+  section[id]:not(#hero) {
+    scroll-margin-top: 5.5rem;
+  }
+
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Lenis root: avoid double viewport height / layout hitch with smooth scroll */
+  html.lenis,
+  html.lenis body {
+    height: auto;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -63,6 +74,10 @@
     .animate-bounce-slow,
     .animate-pulse-slow {
       animation: none;
+    }
+    .skills-marquee-track {
+      animation: none !important;
+      transform: none !important;
     }
   }
 
@@ -155,6 +170,30 @@
 }
 
 @layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  @keyframes skills-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .skills-marquee-track {
+    animation: skills-marquee var(--skills-marquee-duration, 80s) linear infinite;
+    will-change: transform;
+  }
+
   .text-glow {
     text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
   }
