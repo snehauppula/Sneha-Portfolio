@@ -87,6 +87,14 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  /* Desktop custom cursor only — hide system pointer where the overlay is shown */
+  @media (min-width: 768px) {
+    html.use-custom-cursor,
+    html.use-custom-cursor * {
+      cursor: none !important;
+    }
+  }
+
   /* Smoother touch scroll on mobile */
   main {
     overscroll-behavior-y: none;

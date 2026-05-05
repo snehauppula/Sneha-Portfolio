@@ -83,7 +83,7 @@ export function ContactSection() {
                 className="inline-flex w-full max-w-sm items-center justify-center gap-2.5 rounded-2xl border border-white/12 bg-white/[0.04] px-4 py-3.5 text-center font-mono text-[11px] font-medium uppercase tracking-wide text-white/80 backdrop-blur-sm transition-colors hover:border-primary/35 hover:bg-primary/[0.07] hover:text-white sm:w-auto sm:justify-start sm:text-left"
               >
                 <MapPin className="h-4 w-4 shrink-0 text-primary" aria-hidden />
-                Hyderabad, India · Remote
+                Hyderabad, India
               </a>
             </div>
 

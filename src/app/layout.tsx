@@ -6,7 +6,7 @@ import { CustomCursor } from "@/components/ui/custom-cursor";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 import { NeuralNavigator } from "@/components/ui/neural-navigator";
-import { HeroBackground } from "@/components/hero/hero-background";
+import { HeroBackground } from "@/components/hero/hero-background-loader";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -30,6 +30,11 @@ export const metadata: Metadata = {
   title: "Sneha Uppula | B.Tech AI & ML · Data Science & Machine Learning",
   description:
     "Portfolio of Sneha Uppula — B.Tech CSE (AI & ML) at SNIST, Hyderabad. Data analysis, ML, NLP, Power BI, AWS, and automation.",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

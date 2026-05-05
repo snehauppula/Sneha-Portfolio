@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, Variants, useMotionValue, useSpring } from "framer-motion";
+import { motion, Variants, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 import { Download, LucideMousePointer2, User } from "lucide-react";
 import { heroSocialLinks } from "@/data/hero-social";
 import Image from "next/image";
@@ -33,6 +33,7 @@ function openResumePreviewAndDownload() {
 
 export function HeroContent() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const reduceMotion = useReducedMotion();
 
     // Parallax Motion Values
     const mouseX = useMotionValue(0);
@@ -181,16 +182,24 @@ export function HeroContent() {
                     <div className="relative w-[300px] h-[400px] md:w-[450px] md:h-[600px] group cursor-pointer">
                         {/* Interactive Frame */}
                         <motion.div
-                            animate={{
-                                rotateY: [-5, 5, -5],
-                                rotateX: [2, -2, 2],
-                                y: [0, -20, 0]
-                            }}
-                            transition={{
-                                duration: 8,
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                            }}
+                            animate={
+                                reduceMotion
+                                    ? { rotateY: 0, rotateX: 0, y: 0 }
+                                    : {
+                                          rotateY: [-5, 5, -5],
+                                          rotateX: [2, -2, 2],
+                                          y: [0, -20, 0],
+                                      }
+                            }
+                            transition={
+                                reduceMotion
+                                    ? { duration: 0 }
+                                    : {
+                                          duration: 8,
+                                          repeat: Infinity,
+                                          ease: "easeInOut",
+                                      }
+                            }
                             className="relative w-full h-full rounded-[3rem] overflow-hidden border border-white/20 glass shadow-2xl z-10"
                         >
                             <motion.div
@@ -200,12 +209,13 @@ export function HeroContent() {
                                 className="w-full h-full relative"
                             >
                                 <Image
-                                    src="/sneha_pic1.jpg"
-                                    alt="Sneha - Profile"
+                                    src="/hero-portrait.webp"
+                                    alt="Sneha Uppula — portrait"
                                     fill
                                     priority
+                                    quality={85}
                                     sizes="(max-width: 768px) 300px, 450px"
-                                    className="object-cover transition-transform duration-1000"
+                                    className="object-cover object-top transition-transform duration-1000"
                                 />
                                 {/* Detail Overlay */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
@@ -238,8 +248,12 @@ export function HeroContent() {
             >
                 <div className="h-12 w-px bg-gradient-to-b from-transparent via-primary/50 to-transparent" />
                 <motion.div
-                    animate={{ y: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
+                    animate={reduceMotion ? { y: 0 } : { y: [0, 5, 0] }}
+                    transition={
+                        reduceMotion
+                            ? { duration: 0 }
+                            : { duration: 1.5, repeat: Infinity }
+                    }
                     className="flex flex-col items-center gap-1.5"
                 >
                     <span className="text-[9px] uppercase tracking-[0.6em] text-muted-foreground">Scroll</span>
