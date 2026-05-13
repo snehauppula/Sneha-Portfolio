@@ -30,11 +30,6 @@ export const metadata: Metadata = {
   title: "Sneha Uppula | B.Tech AI & ML · Data Science & Machine Learning",
   description:
     "Portfolio of Sneha Uppula — B.Tech CSE (AI & ML) at SNIST, Hyderabad. Data analysis, ML, NLP, Power BI, AWS, and automation.",
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/favicon.ico",
-  },
 };
 
 export default function RootLayout({

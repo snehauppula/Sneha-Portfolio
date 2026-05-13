@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Sneha Uppula">
+  <rect width="32" height="32" rx="7" fill="#0a0a0a"/>
+  <rect x="1.5" y="1.5" width="29" height="29" rx="6" fill="none" stroke="#3b82f6" stroke-opacity="0.55" stroke-width="1"/>
+  <text
+    x="16"
+    y="23"
+    text-anchor="middle"
+    font-family="ui-sans-serif, system-ui, sans-serif"
+    font-size="17"
+    font-weight="900"
+    fill="#fafafa"
+    letter-spacing="-0.06em"
+  >S</text>
+  <circle cx="23.5" cy="9.5" r="2" fill="#3b82f6"/>
+</svg>
