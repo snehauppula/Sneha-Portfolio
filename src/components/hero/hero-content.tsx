@@ -93,7 +93,7 @@ export function HeroContent() {
                             className="inline-block"
                         >
                             <span className="px-5 py-2 rounded-full border border-primary/20 bg-primary/5 text-primary font-mono text-xs uppercase tracking-[0.4em] backdrop-blur-sm">
-                                AI/ML · models, analytics &amp; automation
+                                AI · Software · Data
                             </span>
                         </motion.div>
 
@@ -106,7 +106,11 @@ export function HeroContent() {
                                 Meet <span className="text-glow text-primary">Sneha</span>.
                             </h1>
                             <h2 className="text-2xl md:text-4xl text-white/90 font-sans font-medium tracking-tight uppercase">
-                                Turning uncertainty into <span className="italic text-primary lowercase">intelligence</span>.
+                                <span className="text-primary">AI</span>
+                                <span className="text-white/30"> · </span>
+                                Software
+                                <span className="text-white/30"> · </span>
+                                Data
                             </h2>
                         </motion.div>
 
@@ -116,11 +120,10 @@ export function HeroContent() {
                             className="pt-4"
                         >
                             <p className="text-muted-foreground text-lg md:text-xl max-w-xl leading-relaxed font-light">
-                                Undergraduate at <span className="text-white/80 font-medium">SNIST</span>, Hyderabad.
-                                I build <span className="text-white/80 font-medium">ML and NLP</span> projects, analytics
-                                with <span className="text-white/80 font-medium">Power BI</span>,{" "}
-                                <span className="text-glow font-semibold text-primary">automations</span>, and{" "}
-                                <span className="text-white/80 font-medium">AWS</span>.
+                                Software developer at <span className="text-white/80 font-medium">SNIST</span>, Hyderabad.
+                                I ship <span className="text-glow font-semibold text-primary">AI features</span>,{" "}
+                                <span className="text-white/80 font-medium">apps and APIs</span>, and{" "}
+                                <span className="text-white/80 font-medium">data systems</span> people can actually use.
                             </p>
                         </motion.div>
                     </div>

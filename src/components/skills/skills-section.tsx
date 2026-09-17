@@ -10,13 +10,13 @@ import {
 } from "@/data/skill-marquee";
 
 const TOOLKIT_DESCRIPTION =
-  "One continuous band of tools — smooth infinite scroll with edge fades. Duplicate strip in the engine is only so the loop never jumps.";
+  "Languages, AI, data, and product tools from the work above — one continuous band, no jumps.";
 
 const TOOLKIT_DESCRIPTION_REDUCED =
   "All tools in a static grid (motion reduced on your device).";
 
 /** One full cycle duration — slow enough to read logos comfortably */
-const MARQUEE_DURATION_SEC = 78;
+const MARQUEE_DURATION_SEC = 96;
 
 function SkillLogoCard({ skill }: { skill: MarqueeSkill }) {
   const candidates = useMemo(() => getSkillIconUrlCandidates(skill), [skill]);

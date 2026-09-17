@@ -2,12 +2,13 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Cpu, Workflow } from "lucide-react";
+import { ArrowRight, Cpu, Code2, BarChart3 } from "lucide-react";
 import { categories } from "@/data/projects";
 
 const categoryIcons: Record<string, React.ReactNode> = {
-  "data-science": <Cpu className="w-6 h-6" />,
-  automation: <Workflow className="w-6 h-6" />,
+  ai: <Cpu className="w-6 h-6" />,
+  software: <Code2 className="w-6 h-6" />,
+  data: <BarChart3 className="w-6 h-6" />,
 };
 
 export function ProjectsSection() {
@@ -25,7 +26,7 @@ export function ProjectsSection() {
         }}
       />
 
-      <div className="max-w-4xl mx-auto px-6 relative z-10 w-full">
+      <div className="max-w-6xl mx-auto px-6 relative z-10 w-full">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -40,7 +41,7 @@ export function ProjectsSection() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {categories.map((cat, i) => (
             <motion.div
               key={cat.slug}

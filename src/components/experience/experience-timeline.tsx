@@ -18,19 +18,6 @@ interface ProfessionalRole {
 const roles: ProfessionalRole[] = [
     {
         id: "role-01",
-        title: "Data Analyst",
-        org: "Linq (GoTogether Rides)",
-        date: "Present",
-        tag: "Analytics",
-        impact: "Analyzed user and ride data to surface travel behavior, ride-sharing preferences, and spending patterns.",
-        description: [
-            "Built interactive Power BI dashboards for ride frequency, user intent, and usage trends.",
-            "Translated analysis into actionable insights to support decisions and engagement strategy."
-        ],
-        metrics: "Power BI · Behavioral insights"
-    },
-    {
-        id: "role-02",
         title: "Developer",
         org: "Codex Careers",
         date: "Present",
@@ -44,7 +31,7 @@ const roles: ProfessionalRole[] = [
         metrics: "AWS serverless · AI features"
     },
     {
-        id: "role-03",
+        id: "role-02",
         title: "Co-Founder",
         org: "Flowsite AI",
         date: "Present",
@@ -55,6 +42,19 @@ const roles: ProfessionalRole[] = [
             "Collaborated across ideation, build, and delivery of AI-based projects."
         ],
         metrics: "Automation · Product discovery"
+    },
+    {
+        id: "role-03",
+        title: "Data Analyst",
+        org: "Linq (GoTogether Rides)",
+        date: "Present",
+        tag: "Analytics",
+        impact: "Analyzed user and ride data to surface travel behavior, ride-sharing preferences, and spending patterns.",
+        description: [
+            "Built interactive Power BI dashboards for ride frequency, user intent, and usage trends.",
+            "Translated analysis into actionable insights to support decisions and engagement strategy."
+        ],
+        metrics: "Power BI · Behavioral insights"
     },
     {
         id: "role-04",

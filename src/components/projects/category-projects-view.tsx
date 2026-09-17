@@ -124,7 +124,6 @@ export function CategoryProjectsView({
                 project={project}
                 index={i + 1}
                 accentClass={accentVariants[i % accentVariants.length]}
-                categorySlug={slug}
               />
             ))}
           </ul>
@@ -138,18 +137,16 @@ function ProjectCard({
   project,
   index,
   accentClass,
-  categorySlug,
 }: {
   project: Project;
   index: number;
   accentClass: string;
-  categorySlug: string;
 }) {
-  const isAutomation = categorySlug === "automation";
   const hasDemo = Boolean(project.demo && project.demo !== "#");
   const hasGithub = Boolean(project.github && project.github !== "#");
-  const needsAccess = !isAutomation && !hasDemo && !hasGithub;
+  const needsAccess = !hasDemo && !hasGithub;
   const showCtaColumn = hasDemo || hasGithub || needsAccess;
+  const liveLabel = hasGithub ? "Live demo" : "Visit site";
 
   return (
     <motion.li
@@ -204,9 +201,10 @@ function ProjectCard({
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`${liveLabel}: ${project.title}`}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3.5 text-center text-xs font-bold uppercase tracking-wider text-black shadow-lg shadow-black/20 transition hover:bg-white/95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0c] md:w-auto"
               >
-                Live demo
+                {liveLabel}
                 <ExternalLink className="h-3.5 w-3.5 opacity-70" aria-hidden />
               </a>
             )}

@@ -111,13 +111,13 @@ export function AboutSection() {
                 style={{ y: y1 }}
                 className="absolute top-20 right-[-5%] text-[20vw] font-black text-white/[0.02] select-none whitespace-nowrap leading-none z-0"
             >
-                DATA SCIENCE DATA SCIENCE DATA
+                AI SOFTWARE DATA AI SOFTWARE DATA
             </motion.div>
             <motion.div
                 style={{ y: y2 }}
                 className="absolute bottom-20 left-[-5%] text-[20vw] font-black text-white/[0.02] select-none whitespace-nowrap leading-none z-0"
             >
-                MACHINE LEARNING MACHINE LEARNING
+                SOFTWARE DEVELOPER SOFTWARE DEVELOPER
             </motion.div>
 
             <div className="z-10 grid w-full max-w-7xl grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-10">
@@ -162,24 +162,24 @@ export function AboutSection() {
                             UPLINK_STATUS: SECURED // GENESIS_PROTOCOL
                         </div>
                         <p className="text-3xl md:text-5xl lg:text-5xl text-white font-black leading-[1.1] tracking-tighter uppercase italic">
-                            I turn <span className="text-primary">messy data</span> <br />
-                            into <span className="text-glow">clear decisions</span> <br />
-                            and useful products.
+                            I build with <span className="text-primary">AI</span>, <br />
+                            ship <span className="text-glow">software</span>, <br />
+                            and make <span className="text-primary">data</span> useful.
                         </p>
 
                         <div className="h-px w-full bg-gradient-to-r from-primary/50 to-transparent" />
 
                         <p className="text-lg md:text-2xl text-muted-foreground leading-relaxed font-light max-w-3xl">
                             I&apos;m Sneha Uppula, a B.Tech CSE (AI &amp; ML) undergraduate at SNIST, Hyderabad.
-                            I work across data analysis, machine learning, and NLP—from dashboards and experiments
-                            to AWS-backed features, APIs, and integration-style automation. Active in the Student Developer
+                            I work as a software developer across AI and data — models and NLP, apps and APIs,
+                            cloud features, and tools people can actually use. Active in the Student Developer
                             Community (SDC); co-organized a technical event at Mahindra University.
                         </p>
                     </motion.div>
 
                     {/* Technical Stack Tags */}
                     <div className="flex flex-wrap gap-3 pt-5">
-                        {["Python", "ML & classification", "NLP", "Power BI", "AWS", "Streamlit", "Integrations"].map((tech, i) => (
+                        {["Python", "TypeScript", "Next.js", "AI / ML", "RAG", "Supabase", "Power BI"].map((tech, i) => (
                             <span key={i} className="px-5 py-2 rounded-full border border-white/10 glass text-[10px] font-mono uppercase tracking-widest text-white/40 hover:text-primary hover:border-primary/30 transition-colors">
                                 {tech}
                             </span>

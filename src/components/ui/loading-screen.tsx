@@ -62,7 +62,7 @@ export function LoadingScreen() {
                             className="text-center"
                         >
                             <p className="text-primary text-xs uppercase tracking-[0.4em] animate-pulse">
-                                Initializing into Intelligence...
+                                Booting AI · Software · Data...
                             </p>
                         </motion.div>
                     </div>

@@ -130,7 +130,7 @@ export function BrandLogo() {
                             >
                                 <div className="flex items-center gap-2 mt-2 blur-[0.2px]">
                                     <span className="text-[8px] font-mono tracking-[0.3em] uppercase text-primary font-black">
-                                        Decoding_Data_Frontiers
+                                        AI_Software_Data
                                     </span>
                                     <div className="h-px flex-1 bg-primary/30" />
                                 </div>

@@ -72,7 +72,7 @@ export function ContactSection() {
             </header>
 
             <p className="mx-auto max-w-md text-center text-base font-light leading-relaxed text-white/55 lg:mx-0 lg:max-w-none lg:text-left md:text-lg">
-              Open to AI/ML internships and collaborations. Share a short note—I'll respond as soon as I can.
+              Open to internships and collaborations in AI, software development, and data. Share a short note—I'll respond as soon as I can.
             </p>
 
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center lg:items-start lg:justify-start">

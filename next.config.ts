@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   images: {
     formats: ["image/avif", "image/webp"],
+    qualities: [75, 85],
     minimumCacheTTL: 60 * 60 * 24 * 30,
     remotePatterns: [
       {
@@ -12,6 +13,12 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
       },
     ],
+  },
+  async redirects() {
+    return [
+      { source: "/projects/data-science", destination: "/projects/ai", permanent: true },
+      { source: "/projects/automation", destination: "/projects/software", permanent: true },
+    ];
   },
 };
 

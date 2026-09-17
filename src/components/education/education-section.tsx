@@ -19,7 +19,7 @@ const records: EducationRecord[] = [
         org: "Sreenidhi Institute of Science and Technology (SNIST)",
         date: "2023 — Present",
         grade: "9.64 CGPA",
-        details: ["Artificial Intelligence", "Machine Learning", "Data structures", "Core CS"]
+        details: ["Artificial Intelligence", "Software engineering", "Machine Learning", "Data structures"]
     },
     {
         id: "rec-02",
